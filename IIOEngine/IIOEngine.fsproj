@@ -34,8 +34,9 @@
   <Import Project="WebSharper.targets" Condition="Exists('WebSharper.targets')" />
   <ItemGroup>
     <Compile Include="Abstracts.fs" />
-    <Compile Include="Main.fs" />
+    <Compile Include="Definition.fs" />
     <Compile Include="Extensions.fs" />
+    <Compile Include="Main.fs" />
     <None Include="WebSharper.targets" />
     <None Include="Resources.cs" />
     <Content Include="iioEngine-1.2.2.min.js" />
