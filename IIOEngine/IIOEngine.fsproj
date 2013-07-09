@@ -30,18 +30,15 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets" />
-  <Import Project="WebSharper.targets" Condition="Exists('WebSharper.targets')" />
+  <Import Project="..\.build\lib\IntelliFactory.WebSharper.InterfaceGenerator.targets" />
   <ItemGroup>
     <Compile Include="Abstracts.fs" />
     <Compile Include="Definition.fs" />
     <Compile Include="Extensions.fs" />
     <Compile Include="Main.fs" />
-    <None Include="WebSharper.targets" />
     <None Include="Resources.cs" />
     <Content Include="iioEngine-1.2.2.min.js" />
     <None Include="Marker.cs" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
