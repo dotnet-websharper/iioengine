@@ -10,7 +10,7 @@ module Something =
 
     let Assembly =
         Assembly [
-            Namespace "IIOEngine" [
+            Namespace "IntelliFactory.WebSharper.IIOEngine" [
                 Vec
                 Obj |+> ObjExtensions 
                 Shape |+> ShapeExtensions
@@ -22,7 +22,14 @@ module Something =
                 Line 
                 MultiLine  
                 Grid
-                Text 
+                Text
+                AppManager
+                fxFade
+                ObjExtClass
+                SpriteMap
+                Sprite
+                KinematicsBound
+                KinematicsBounds
             ]
        ]
 
