@@ -1,6 +1,5 @@
 ﻿module IIOEngine.Abstracts
 
-open IntelliFactory.WebSharper
 open IntelliFactory.WebSharper.InterfaceGenerator
     
 //Abstracts
@@ -15,55 +14,56 @@ let Vec =
         "toString" => T<unit> ^-> T<string>
         "length" => T<unit> ^-> T<float>
         "normalize" => T<unit> ^-> T<unit>
-        "set" => self ^-> self
-        "set" => T<float> * T<float> ^-> self
-        "add" => self ^-> self
-        "add" => T<float> * T<float> ^-> self
-        "sub" => self ^-> self
-        "sub" => T<float> * T<float> ^-> self
-        "mult" => T<float> ^-> T<float>
-        "div" => T<float> ^-> T<float>
-        "dot" => self ^-> T<float>
-        "dot" => T<float> * T<float> ^-> self
-        "distance" => self ^-> T<float>
-        "distance" => T<float> * T<float> ^-> self
-        "lerp" => self ^-> self
-        "lerp" => T<float> * T<float> ^-> self
+        "set" => self?v ^-> self
+        "set" => T<float>?x * T<float>?y ^-> self
+        "add" => self?v ^-> self
+        "add" => T<float>?x * T<float>?y ^-> self
+        "sub" => self?v ^-> self
+        "sub" => T<float>?x * T<float>?y ^-> self
+        "mult" => T<float>?number ^-> T<float>
+        "div" => T<float>?divisor ^-> T<float>
+        "dot" => self?v ^-> T<float>
+        "dot" => T<float>?x * T<float>?y ^-> self
+        "distance" => self?v ^-> T<float>
+        "distance" => T<float>?x * T<float>?y ^-> self
+        "lerp" => self?v * T<float>?weight ^-> self
+        "lerp" => T<float>?x * T<float>?y * T<float>?weight ^-> self
     ]
     //static functions
     |+> [
-            Constructor <| self
-            Constructor <| T<float> * T<float>
-            "tostring" => self ^-> T<string>
-            "tostring" => T<float> * T<float> ^-> T<string>
-            "length" => self ^-> T<float>
-            "length" => T<float> * T<float> ^-> T<float>
-            "normalize" => self ^-> T<float>
-            "normalize" => T<float> * T<float> ^-> T<float>
-            "add" => self * self ^-> self
-            "add" => self * T<float> * T<float> ^-> self
-            "add" => T<float> * T<float> * self ^-> self
-            "add" => T<float> * T<float> * T<float> * T<float> ^-> self
-            "sub" => self * self ^-> self
-            "sub" => self * T<float> * T<float> ^-> self 
-            "sub" => T<float> * T<float> * self ^-> self
-            "sub" => T<float> * T<float> * T<float> * T<float> ^-> self
-            "mult" => self * T<float> ^-> self
-            "mult" => T<float> * T<float> * T<float> ^-> self
-            "div" => self * T<float> ^-> self
-            "div" => T<float> * T<float> * T<float> ^-> self
-            "dot" => self * self ^-> T<float>
-            "dot" => self * T<float> * T<float> ^-> T<float>
-            "dot" => T<float> * T<float> * self ^-> T<float>
-            "dot" => T<float> * T<float> * T<float> * T<float> ^-> T<float>
-            "distance" => self * self ^-> T<float>
-            "distance" => self * T<float> * T<float> ^-> T<float>
-            "distance" => T<float> * T<float> * self ^-> T<float>
-            "distance" => T<float> * T<float> * T<float> * T<float> ^-> T<float>
-            "lerp" => self * self * T<float> ^-> self
-            "lerp" => self * T<float> * T<float> * T<float> ^-> self
-            "lerp" => T<float> * T<float> * self * T<float> ^-> self
-            "lerp" => T<float> * T<float> * T<float> * T<float> * T<float> ^-> self
+            Constructor <| self?v
+            Constructor <| T<float>?x * T<float>?y
+            "tostring" => self?v ^-> T<string>
+            "tostring" => T<float>?x * T<float>?y ^-> T<string>
+            "length" => self?v ^-> T<float>
+            "length" => T<float>?x * T<float>?y ^-> T<float>
+            "normalize" => self?v ^-> T<float>
+            "normalize" => T<float>?x * T<float>?y ^-> T<float>
+            "add" => self?v1 * self?v2 ^-> self
+            "add" => self?v1 * T<float>?x2 * T<float>?y2 ^-> self
+            "add" => T<float>?x1 * T<float>?y1 * self?v2 ^-> self
+            "add" => T<float>?x1 * T<float>?y1 * T<float>?x2 * T<float>?y2 ^-> self
+            "sub" => self?v1 * self?v2 ^-> self
+            "sub" => self?v1 * T<float>?x2 * T<float>?y2 ^-> self 
+            "sub" => T<float>?x1 * T<float>?y1 * self?v2 ^-> self
+            "sub" => T<float>?x1 * T<float>?y1 * T<float>?x2 * T<float>?y2 ^-> self
+            "mult" => self?v1 * T<float>?factor ^-> self
+            "mult" => T<float>?x1 * T<float>?y1 * T<float>?factor ^-> self
+            "div" => self?v1 * T<float>?divisor ^-> self
+            "div" => T<float>?x1 * T<float>?y1 * T<float>?divisor ^-> self
+            "dot" => self?v1 * self?v2 ^-> T<float>
+            "dot" => self?v1 * T<float>?x2 * T<float>?y2 ^-> T<float>
+            "dot" => T<float>?x1 * T<float>?y1 * self?v2 ^-> T<float>
+            "dot" => T<float>?x1 * T<float>?y1 * T<float>?x2 * T<float>?y2 ^-> T<float>
+            "distance" => self?v1 * self?v2 ^-> T<float>
+            "distance" => self?v1 * T<float>?x2 * T<float>?y2 ^-> T<float>
+            "distance" => T<float>?x1 * T<float>?y1 * self?v2 ^-> T<float>
+            "distance" => T<float>?x1 * T<float>?y1 * T<float>?x2 * T<float>?y2 ^-> T<float>
+            "lerp" => self?v1 * self?v2 * T<int>?weight ^-> self
+            "lerp" => self?v1 * T<float>?x2 * T<float>?y2 * T<int>?weight ^-> self
+            "lerp" => T<float>?x1 * T<float>?y1 * self?v2 * T<int>?weight ^-> self
+            "lerp" => T<float>?x1 * T<float>?y1 * T<float>?x2 * T<float>?y2 * T<int>?weight ^-> self
+
     ]
 let Obj =
     let self = Type.New()
@@ -73,22 +73,19 @@ let Obj =
         "pos" =@ Vec
         "rotation" =@ T<float>
         "clone" => T<unit> ^-> self
-        "setPos" => Vec ^-> self
-        "setPos" => T<float> * T<float> ^-> self
-        "translate" => Vec ^-> self
-        "translate" => T<float> * T<float> ^-> self
-        "rotate" => T<float> ^-> self
-        "enableUpdates" => ((T<obj> ^-> T<unit>) * T<obj[]>) ^-> self
+        "setPos" => Vec?pos ^-> self
+        "setPos" => T<float>?x * T<float>?y ^-> self
+        "translate" => Vec?v ^-> self
+        "translate" => T<float>?x * T<float>?y ^-> self
+        "rotate" => T<float>?radians ^-> self
+        "enableUpdates" => ((T<obj> ^-> T<unit>)?callback * T<obj[]>?callbackParams) ^-> self
     ]
     |+> [
-        Constructor <| Vec
-        Constructor <| T<float> * T<float>
+        Constructor <| Vec?position
+        Constructor <| T<float>?x * T<float>?y
     ]
     //|+>ObjExtensions 
 let Shape =
     Class "Shape"
     |=> Inherits Obj
-    |+> Protocol [
-        //nothing comes here
-    ]
     

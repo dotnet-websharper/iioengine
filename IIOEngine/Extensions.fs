@@ -1,6 +1,6 @@
 ﻿module IIOEngine.Extensions
 
-open IntelliFactory.WebSharper
+open IntelliFactory.WebSharper.Dom
 open IntelliFactory.WebSharper.InterfaceGenerator
 open IIOEngine.Abstracts
 open IIOEngine.Definition
@@ -22,30 +22,30 @@ let ShapeExtensions =
     Protocol [
         "clearSelf" => Canvas2DContext ^-> T<unit>   
         "setFillStyle" => T<float> + T<float> + T<float> ^-> T<unit>
-        "addImage" => T<obj> ^-> T<unit>
-        "addImage" => T<string> * (T<obj> ^-> T<unit>) ^-> T<unit>
-        "flipImage" => T<bool> ^-> T<unit>
-        "setImgOffset" => Vec ^-> T<unit>
-        "setImgOffset" => T<float> * T<float> ^-> T<unit>
-        "setImgSize" => Vec ^-> T<unit>
-        "setImgSize" => T<float>* T<float> ^-> T<unit>
-        "setImgScale" => T<float> ^-> T<unit>
-        "setImgRotation" => T<float> ^-> T<unit>
-        "addAnim" => T<obj[]> ^-> T<unit>
-        "addAnim" => T<obj> * T<string> ^-> T<unit>
-        "addAnim" => T<obj[]> * (T<obj> ^-> T<unit>) ^-> T<unit>
-        "setAnim" => T<string> * T<float> * T<obj> ^-> T<unit>
-        "setAnim" => T<float> * T<float> * T<obj> ^-> T<unit>
-        "setAnim" => T<string> * T<obj> ^-> T<unit>
-        "setAnim" => T<float> * T<obj> ^-> T<unit>
-        "setAnimKey" => T<float> ^-> T<unit>
-        "setAnimFrame" => T<float> ^-> T<unit>
+        "addImage" => T<obj>?img ^-> T<unit>
+        "addImage" => T<string>?src * (T<obj> ^-> T<unit>)?onloadCallback ^-> T<unit>
+        "flipImage" => T<bool>?yes ^-> T<unit>
+        "setImgOffset" => Vec?offset ^-> T<unit>
+        "setImgOffset" => T<float>?offsetX * T<float>?offsetY ^-> T<unit>
+        "setImgSize" => Vec?size ^-> T<unit>
+        "setImgSize" => T<float>?width * T<float>?height ^-> T<unit>
+        "setImgScale" => T<float>?scale ^-> T<unit>
+        "setImgRotation" => T<float>?rotation ^-> T<unit>
+        "addAnim" => T<obj[]>?imgs ^-> T<unit>
+        "addAnim" => T<obj>?sprite * T<string>?tag ^-> T<unit>
+        "addAnim" => T<obj[]>?imgSrcs * (T<obj> ^-> T<unit>)?onloadCallback ^-> T<unit>
+        "setAnim" => T<string>?tag * T<float>?frame * T<obj>?ctx ^-> T<unit>
+        "setAnim" => T<float>?key * T<float>?frame * T<obj>?ctx ^-> T<unit>
+        "setAnim" => T<string>?tag * T<obj>?ctx ^-> T<unit>
+        "setAnim" => T<float>?key * T<obj>?ctx ^-> T<unit>
+        "setAnimKey" => T<float>?frame ^-> T<unit>
+        "setAnimFrame" => T<float>?frame ^-> T<unit>
         "nextAnimFrame" => T<unit> ^-> T<unit>
-        "playAnim" => T<float> * AppManager * T<float> ^-> T<unit>
-        "playAnim" => T<string> * T<float> * AppManager * T<float> ^-> T<unit>
-        "playAnim" => T<float> * T<float> * AppManager * T<float> ^-> T<unit>
-        "stopAnim" => T<string> * T<obj> ^-> T<unit>
-        "stopAnim" => T<float> * T<obj> ^-> T<unit>
+        "playAnim" => T<float>?fps * AppManager?io * T<int>?canvasId ^-> T<unit>
+        "playAnim" => T<string>?tag * T<float>?fps * AppManager?io * T<int>?canvasId ^-> T<unit>
+        "playAnim" => T<float>?tag * T<float>?fps * AppManager?io * T<int>?canvasId ^-> T<unit>
+        "stopAnim" => T<string>?tag * T<obj>?ctx ^-> T<unit>
+        "stopAnim" => T<float>?tag * T<obj>?ctx ^-> T<unit>
     ]
 //Obj Extensions
 let ObjExtensions =
@@ -53,30 +53,31 @@ let ObjExtensions =
         //primary functions
         "draw" => Canvas2DContext ^-> T<unit>
         //style functions
-        "setAlpha" => T<float> ^-> T<unit>
-        "setStrokeStyle" => T<float> + T<float> + T<float> ^-> T<unit>
-        "setLineWidth" => T<float> ^-> T<unit>
-        "setFillStyle" => T<float> + T<float> + T<float> ^-> T<unit>
-        "setShadow" => T<string> * Vec * T<float> ^-> T<unit>
-        "setShadow" => T<string> * T<float> * T<float> * T<float> ^-> T<unit>
-        "setShadowColor" => T<string> ^-> T<unit>
-        "setShadowOffset" => Vec ^-> T<unit>
-        "setShadowOffset" => T<float> * T<float> ^-> T<unit>
-        "setShadowBlur" => T<float> ^-> T<unit>
-        "drawReferenceLine" => T<bool> ^-> T<unit>
+        "setAlpha" => T<float>?alpha ^-> T<unit>
+        "setStrokeStyle" => (T<string> + T<obj>)?style * !?T<float>?width  ^-> T<unit>
+        "setLineWidth" => T<float>?lineWidth ^-> T<unit>
+        "setFillStyle" => (T<string> + T<obj>)?style ^-> T<unit>
+        "setShadow" => T<string>?color * Vec?offset * T<float>?blur ^-> T<unit>
+        "setShadow" => T<string>?color * T<float>?offsetX * T<float>?offseY * T<float>?blur ^-> T<unit>
+        "setShadowColor" => T<string>?color ^-> T<unit>
+        "setShadowOffset" => Vec?offset ^-> T<unit>
+        "setShadowOffset" => T<float>?offsetX * T<float>?offsetY ^-> T<unit>
+        "setShadowBlur" => T<float>?blur ^-> T<unit>
+        "drawReferenceLine" => T<bool>?turnOn ^-> T<unit>
         //effest functions
-        "fade" => T<float> * T<float> ^-> T<unit>
-        "fadeIn" => T<float> * T<float>
-        "fadeOut" => T<float> * T<float>
+        "fade" => T<float>?rate * T<float>?alpha ^-> T<unit>
+        "fadeIn" => T<float>?rate * T<float>?alpha ^-> T<unit>
+        "fadeOut" => T<float>?rate * T<float>?alpha ^-> T<unit>
         //image functions               
-        "createWithImage" => T<obj> ^-> T<unit>
+        "createWithImage" => T<Element> ^-> T<unit>
         "createWithImage" => T<string> * (T<obj> ^-> T<unit>) ^-> T<unit>          
-        "setPolyDraw" => T<bool> ^-> T<unit>
+        "setPolyDraw" => T<bool>?turnOn ^-> T<unit>
         //anim functions
-        "createWithAnim" => T<obj[]> ^-> T<unit>
-        "createWithAnim" => T<obj[]> * (T<obj> ^-> T<unit>) * T<float> ^-> T<unit>
-        "createWithAnim" => T<obj> * T<string> * T<float> ^-> T<unit>
-        
+        "createWithAnim" => T<obj[]>?imgs ^-> T<unit>
+        "createWithAnim" => T<obj[]>?imgSrcs * (T<obj> ^-> T<unit>)?onloadCallback * T<float>?animFrame ^-> T<unit>
+        "createWithAnim" => T<obj>?sprite * T<string>?tag * T<float>?animFrame ^-> T<unit>
+        //do i really need this???
+        "setRotationAxis" => T<float> * T<float> ^-> T<unit>
     ]
 let fxFade =
     Class "fxFade"
@@ -107,15 +108,15 @@ let SpriteMap =
     Class "SpriteMap"
     |=> self
     |+> Protocol [
-        "getSprite" => T<float> * T<float> ^-> T<obj>
-        "getSprite" => T<float> ^-> T<obj>
-        "setSpriteRes" => Vec ^-> T<unit>
-        "setSpriteRes" => T<float> * T<float> ^-> T<unit>
+        "getSprite" => T<float>?start * T<float>?``end`` ^-> T<obj>
+        "getSprite" => T<float>?row ^-> T<obj>
+        "setSpriteRes" => Vec?res ^-> T<unit>
+        "setSpriteRes" => T<float>?x * T<float>?y ^-> T<unit>
     ]
     |+> [
-            Constructor <| T<obj> * T<float> * T<float>
-            Constructor <| T<string> * T<float> * T<float> * (T<obj> ^-> T<unit>) * T<obj>
-            Constructor <| T<string> * (T<obj> ^-> T<unit>) * T<obj>
+            Constructor <| T<obj>?src * T<float>?sprW * T<float>?spwrH ^-> T<unit>
+            Constructor <| T<string>?src * T<float>?sprW * T<float>?sprH * (T<obj> ^-> T<unit>)?onloadCallback * T<obj>?callbackParam ^-> T<unit>
+            Constructor <| T<string>?src * (T<obj> ^-> T<unit>)?onloadCallback * T<obj>?callbackParam ^-> T<unit>
     ]
 let Sprite =
     let self = Type.New()
@@ -123,10 +124,10 @@ let Sprite =
     |=> self
     |+> Protocol [
         "frames" =@ T<obj[]>
-        "addFrame   " => T<float> * T<float> * T<float> * T<float> ^-> T<unit>
+        "addFrame   " => T<float>?x * T<float>?y * T<float>?w * T<float>?h ^-> T<unit>
     ]
     |+> [
-            Constructor <| T<obj>
+            Constructor <| T<obj>?src
     ]
 //grapichs engine end
 //kinematics start
@@ -155,11 +156,11 @@ let Kinematics =
         "bounds" =@ KinematicsBounds
         "enableKinematics" => T<unit> ^-> T<unit>
         "update" => T<unit> ^-> T<unit>
-        "setVel" => Vec ^-> T<unit>
-        "setVel" => T<float> * T<float> ^-> T<unit>
-        "setAcc" => Vec ^-> T<unit>
-        "setAcc" => T<float> * T<float> ^-> T<unit>
-        "setTorque" => T<float> ^-> T<unit>
-        "setBound" => T<string> * T<float> * (T<obj> ^-> T<unit>) ^-> T<unit>
-        "setBounds" => T<float> * T<float> * T<float> * T<float> * (T<obj> ^-> T<unit>) ^-> T<unit>
+        "setVel" => Vec?v ^-> T<unit>
+        "setVel" => T<float>?vX * T<float>?vY ^-> T<unit>
+        "setAcc" => Vec?v ^-> T<unit>
+        "setAcc" => T<float>?vX * T<float>?vY ^-> T<unit>
+        "setTorque" => T<float>?t ^-> T<unit>
+        "setBound" => T<string>?boundName * T<float>?boundCoordinate * (T<obj> ^-> T<unit>)?callback ^-> T<unit>
+        "setBounds" => T<float>?top * T<float>?right * T<float>?bottom * T<float>?left * (T<obj> ^-> T<unit>)?callback ^-> T<unit>
     ]

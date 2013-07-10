@@ -30,6 +30,7 @@ module Something =
                 Sprite
                 KinematicsBound
                 KinematicsBounds
+                Iio
             ]
        ]
 
