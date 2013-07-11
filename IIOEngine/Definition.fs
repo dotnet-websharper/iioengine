@@ -161,9 +161,9 @@ let Text =
         "font" =@ T<string>
         "textAlign" =@ T<string>
         "clone" => T<unit> ^-> self
-        "setText" => T<string> ^-> self
-        "setFont" => T<string> ^-> self
-        "setTextAlign" => T<string> ^-> self
+        "setText" => T<string>?text ^-> self
+        "setFont" => T<string>?text ^-> self
+        "setTextAlign" => T<string>?text ^-> self
     ]
     |+> [
             Constructor <| T<string>?text * Vec?pos
@@ -199,8 +199,8 @@ let AppManager =
         "addCanvas" => T<int>?zIndex * T<float>?w * T<float>?h * T<string>?attachElementId ^-> T<float>
         "addCanvas" => T<int>?zIndex * T<float>?w * T<float>?h * T<string>?attachElementId * T<string>?cssClass ^-> T<float>
         "addCanvas" => T<int>?zIndex * T<float>?w * T<float>?h * T<string>?attachElementId * T<obj[]>?cssClasses ^-> T<float>
-        "getPosition" => T<Event>?event * !?T<float>?c ^-> Vec
-        "setBGColor" => T<string>?color * !?T<float>?c ^-> self
+        "getEventPosition" => T<Event>?event * !?T<int>?c ^-> Vec
+        "setBGColor" => T<string>?color * !?T<int>?c ^-> self
         "setBGPattern" => T<string>?imagePath ^-> T<bool>
         "setBGPattern" => T<string>?imagePath * T<float>?c ^-> T<bool>
         "setBGImage" => T<string>?imagePath ^-> self
@@ -209,7 +209,7 @@ let AppManager =
         "addObj" => Obj?obj * T<float>?c ^-> Obj
         "rmvObj" => Obj?obj * T<float>?c ^-> T<bool>
         "rmvAll" => !?T<int>?c ^-> self
-        "addGroup" => T<string>?tag * T<int>?zIndex * !?T<float>?c ^-> T<float>
+        "addGroup" => T<string>?tag * !?T<int>?zIndex * !?T<float>?c ^-> T<float>
         "addToGroup" => T<string>?tag * Obj?obj * !?T<int>?zIndex * !?T<float>?c ^-> Obj
         "rmvFromGroup" => Obj?obj * T<string>?tag * !?T<float>?c ^-> T<float>
         "getGroup" => T<string>?tag * T<int>?canvasId * T<float>?from * T<float>?``to`` ^-> T<obj[]>
@@ -246,4 +246,6 @@ let Iio =
         "polyXpoly" => Poly?poly1 * Poly?poly2 ^-> T<bool>
         "circleXcircle" => Circle?circle1 * Circle?circle2 ^-> T<bool>
         "polyXcircle" => Poly?poly * Circle?circle ^-> T<bool>
-    ]
+        "addEvent" => T<IntelliFactory.WebSharper.Html5.CanvasElement>?obj * T<string>?evt * (T<obj> ^-> T<unit>)?fn * !?T<obj>?capt ^-> T<bool>
+    ] 
+                                                                                         

@@ -13,7 +13,7 @@ module Something =
             Namespace "IntelliFactory.WebSharper.IIOEngine" [
                 Vec
                 Obj |+> ObjExtensions 
-                Shape |+> ShapeExtensions
+                Shape |+> ShapeExtensions |+> Kinematics
                 Circle   
                 Poly 
                 Rect 

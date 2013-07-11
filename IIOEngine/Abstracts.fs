@@ -1,6 +1,7 @@
 ﻿module IIOEngine.Abstracts
 
 open IntelliFactory.WebSharper.InterfaceGenerator
+open IntelliFactory.WebSharper.Dom
     
 //Abstracts
 let Vec =
@@ -79,6 +80,7 @@ let Obj =
         "translate" => T<float>?x * T<float>?y ^-> self
         "rotate" => T<float>?radians ^-> self
         "enableUpdates" => ((T<obj> ^-> T<unit>)?callback * T<obj[]>?callbackParams) ^-> self
+        "addEventListener" => T<Event>?evt * (T<obj> ^-> T<unit>)?fn * T<obj>?capt ^-> T<bool>
     ]
     |+> [
         Constructor <| Vec?position

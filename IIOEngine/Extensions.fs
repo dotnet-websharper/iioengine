@@ -69,7 +69,7 @@ let ObjExtensions =
         "fadeIn" => T<float>?rate * T<float>?alpha ^-> T<unit>
         "fadeOut" => T<float>?rate * T<float>?alpha ^-> T<unit>
         //image functions               
-        "createWithImage" => T<Element> ^-> T<unit>
+        "createWithImage" => T<Element> ^-> T<Element>
         "createWithImage" => T<string> * (T<obj> ^-> T<unit>) ^-> T<unit>          
         "setPolyDraw" => T<bool>?turnOn ^-> T<unit>
         //anim functions
@@ -78,6 +78,7 @@ let ObjExtensions =
         "createWithAnim" => T<obj>?sprite * T<string>?tag * T<float>?animFrame ^-> T<unit>
         //do i really need this???
         "setRotationAxis" => T<float> * T<float> ^-> T<unit>
+        "shrink" => T<float>?s ^-> T<float>
     ]
 let fxFade =
     Class "fxFade"
@@ -161,6 +162,7 @@ let Kinematics =
         "setAcc" => Vec?v ^-> T<unit>
         "setAcc" => T<float>?vX * T<float>?vY ^-> T<unit>
         "setTorque" => T<float>?t ^-> T<unit>
-        "setBound" => T<string>?boundName * T<float>?boundCoordinate * (T<obj> ^-> T<unit>)?callback ^-> T<unit>
+        "setBound" => T<string>?boundName * T<float>?boundCoordinate * !?(T<obj> ^-> T<unit>)?callback ^-> T<unit>
         "setBounds" => T<float>?top * T<float>?right * T<float>?bottom * T<float>?left * (T<obj> ^-> T<unit>)?callback ^-> T<unit>
     ]
+
