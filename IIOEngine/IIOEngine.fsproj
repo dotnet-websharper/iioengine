@@ -38,7 +38,7 @@
     <Compile Include="Main.fs" />
     <None Include="Resources.cs" />
     <None Include="Marker.cs" />
-    <Content Include="iioEngine-1.2.2.min.js" />
+    <EmbeddedResource Include="iioEngine-1.2.2.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

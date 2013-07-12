@@ -11,7 +11,7 @@ open IIOEngine.Abstracts
 //Shapes
 let Circle =
     let self = Type.New()
-    Class "Circle"
+    Class "iio.Circle"
     |=> self
     |=> Inherits Shape
     |+> Protocol [
@@ -27,7 +27,7 @@ let Circle =
     ]
 let Poly =
     let self = Type.New()
-    Class "Poly"
+    Class "iio.Poly"
     |=> self
     |=> Inherits Shape
     |+> Protocol [
@@ -48,7 +48,7 @@ let Poly =
     ]
 let Rect =
     let self = Type.New()
-    Class "Rect"
+    Class "iio.Rect"
     |=> self
     |=> Inherits Shape
     |+> Protocol [
@@ -62,7 +62,7 @@ let Rect =
     ]
 let SimpleRect =
     let self = Type.New()
-    Class "SimpleRect"
+    Class "iio.SimpleRect"
     |=> self
     |=> Inherits Shape
     |+> Protocol [
@@ -85,7 +85,7 @@ let SimpleRect =
     ]
 let XShape =
     let self = Type.New()
-    Class "XShape"
+    Class "iio.XShape"
     |=> self
     |=> Inherits Shape
     |+> Protocol [
@@ -100,7 +100,7 @@ let XShape =
 //Constructs
 let Line =
     let self = Type.New()
-    Class "Line"
+    Class "iio.Line"
     |=> self
     |=> Inherits Obj
     |+> Protocol [
@@ -120,7 +120,7 @@ let Line =
     ]
 let MultiLine =
     let self = Type.New()
-    Class "MultiLine"
+    Class "iio.MultiLine"
     |=> self
     |=> Inherits Obj
     |+> Protocol [
@@ -132,7 +132,7 @@ let MultiLine =
     ]
 let Grid =
     let self = Type.New()
-    Class "Grid"
+    Class "iio.Grid"
     |=> self
     |=> Inherits Obj
     |+> Protocol [
@@ -153,7 +153,7 @@ let Grid =
     ]
 let Text =
     let self = Type.New()
-    Class "Text"
+    Class "iio.Text"
     |=> self
     |=> Inherits Obj
     |+> Protocol [
@@ -182,8 +182,8 @@ let AppManager =
         "context" =@ Canvas2DContext
         "cnvs" =@ T<obj[]>
         "ctxs" =@ T<obj[]>
-        "setFramerate" => T<float>?fps * (T<obj> ^-> T<unit>)?callback * !?T<float>?c ^-> self
-        "setFramerate" => T<float>?fps * Obj?obj * T<obj>?ctx * (T<obj> ^-> T<unit>)?callback ^-> self
+        "setFramerate" => T<int>?fps * (T<obj> ^-> T<unit>)?callback * !?T<float>?c ^-> self
+        "setFramerate" => T<int>?fps * Obj?obj * T<obj>?ctx * (T<obj> ^-> T<unit>)?callback ^-> self
         "pauseFramerate" => T<bool>?pause ^-> self
         "pauseFramerate" => T<bool>?pause * Obj?obj ^-> self
         "cancelFramerate" => T<int>?canvasIndex ^-> self
@@ -213,12 +213,12 @@ let AppManager =
         "addToGroup" => T<string>?tag * Obj?obj * !?T<int>?zIndex * !?T<float>?c ^-> Obj
         "rmvFromGroup" => Obj?obj * T<string>?tag * !?T<float>?c ^-> T<float>
         "getGroup" => T<string>?tag * T<int>?canvasId * T<float>?from * T<float>?``to`` ^-> T<obj[]>
-        "setCollisionCallback" => T<string>?tag * (T<obj> ^-> T<unit>)?callback * !?T<float>?c ^-> T<float>
-        "setCollisionCallback" => T<string>?tag1 * T<string>?tag2 * (T<obj> ^-> T<unit>)?callback * !?T<float>?c ^-> T<float>
+        "setCollisionCallback" => T<string>?tag * ((T<obj> * T<obj>) ^-> T<unit>) * !?T<int>?c ^-> T<float>
+        "setCollisionCallback" => T<string>?tag1 * T<string>?tag2 * ((Obj * Obj) ^-> T<unit>)?callback * !?T<int> ^-> T<float>
     ]
         
 let Iio =
-    Class "Iio"
+    Class "iio"
     |+> [
         //need the class inherit parent-child
         //"inherit" => ()

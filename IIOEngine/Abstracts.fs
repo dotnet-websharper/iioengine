@@ -6,7 +6,7 @@ open IntelliFactory.WebSharper.Dom
 //Abstracts
 let Vec =
     let self = Type.New()
-    Class "Vec"
+    Class "iio.Vec"
     |=> self
     |+> Protocol [
         "x" =@ T<float>
@@ -68,7 +68,7 @@ let Vec =
     ]
 let Obj =
     let self = Type.New()
-    Class "Obj"
+    Class "iio.Obj"
     |=> self
     |+> Protocol [
         "pos" =@ Vec

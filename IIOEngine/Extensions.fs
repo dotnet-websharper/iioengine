@@ -69,14 +69,14 @@ let ObjExtensions =
         "fadeIn" => T<float>?rate * T<float>?alpha ^-> T<unit>
         "fadeOut" => T<float>?rate * T<float>?alpha ^-> T<unit>
         //image functions               
-        "createWithImage" => T<Element> ^-> T<Element>
+        "createWithImage" => T<Element> ^-> T<unit>
         "createWithImage" => T<string> * (T<obj> ^-> T<unit>) ^-> T<unit>          
         "setPolyDraw" => T<bool>?turnOn ^-> T<unit>
         //anim functions
         "createWithAnim" => T<obj[]>?imgs ^-> T<unit>
         "createWithAnim" => T<obj[]>?imgSrcs * (T<obj> ^-> T<unit>)?onloadCallback * T<float>?animFrame ^-> T<unit>
         "createWithAnim" => T<obj>?sprite * T<string>?tag * T<float>?animFrame ^-> T<unit>
-        //do i really need this???
+        //misc
         "setRotationAxis" => T<float> * T<float> ^-> T<unit>
         "shrink" => T<float>?s ^-> T<float>
     ]
