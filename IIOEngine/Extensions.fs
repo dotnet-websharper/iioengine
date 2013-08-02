@@ -56,7 +56,7 @@ let ObjExtensions =
         "setAlpha" => T<float>?alpha ^-> T<unit>
         "setStrokeStyle" => (T<string> + T<obj>)?style * !?T<float>?width  ^-> T<unit>
         "setLineWidth" => T<float>?lineWidth ^-> T<unit>
-        "setFillStyle" => (T<string> + T<obj>)?style ^-> T<unit>
+        Generic - fun t -> "setFillStyle" => (T<string> + T<obj>)?style ^-> t
         "setShadow" => T<string>?color * Vec?offset * T<float>?blur ^-> T<unit>
         "setShadow" => T<string>?color * T<float>?offsetX * T<float>?offseY * T<float>?blur ^-> T<unit>
         "setShadowColor" => T<string>?color ^-> T<unit>
@@ -125,14 +125,11 @@ let Sprite =
     |=> self
     |+> Protocol [
         "frames" =@ T<obj[]>
-        "addFrame   " => T<float>?x * T<float>?y * T<float>?w * T<float>?h ^-> T<unit>
+        "addFrame" => T<float>?x * T<float>?y * T<float>?w * T<float>?h ^-> T<unit>
     ]
     |+> [
             Constructor <| T<obj>?src
     ]
-//grapichs engine end
-//kinematics start
-
 let KinematicsBound =
     Class "KinematicsBound"
     |+> Protocol [

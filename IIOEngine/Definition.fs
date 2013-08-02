@@ -173,6 +173,7 @@ let Text =
 
 //AppManager
 let Canvas2DContext = Type.New()
+let b2World = Type.New()
 let AppManager =
     let self = Type.New()
     Class "AppManager"
@@ -191,6 +192,7 @@ let AppManager =
         "setAnimFPS" => T<float>?fps * Obj?obj * !?T<float>?canvasId ^-> T<float>
         //Canvas Control Functions
         "draw" => T<float>?c ^-> self
+        "addB2World" => b2World?world * !?T<int>?c ^-> b2World
         "addCanvas" => T<unit> ^-> T<float>
         "addCanvas" => T<string>?canvasId ^-> T<float>
         "addCanvas" => T<int>?zIndex ^-> T<float>
@@ -206,9 +208,9 @@ let AppManager =
         "setBGImage" => T<string>?imagePath ^-> self
         "setBGImage" => T<string>?imagePath * T<float>?c ^-> self
         //Object Control Functions
-        "addObj" => Obj?obj * T<float>?c ^-> Obj
-        "rmvObj" => Obj?obj * T<float>?c ^-> T<bool>
-        "rmvAll" => !?T<int>?c ^-> self
+        Generic - fun t -> "addObj" => t?obj * !?T<int>?c ^-> t
+        "rmvObj" => Obj?obj * !?T<int>?c ^-> T<bool>
+        "rmvAll" => !?T<int>?c ^-> T<unit>
         "addGroup" => T<string>?tag * !?T<int>?zIndex * !?T<float>?c ^-> T<float>
         "addToGroup" => T<string>?tag * Obj?obj * !?T<int>?zIndex * !?T<float>?c ^-> Obj
         "rmvFromGroup" => Obj?obj * T<string>?tag * !?T<float>?c ^-> T<float>
@@ -223,10 +225,10 @@ let Iio =
         //need the class inherit parent-child
         //"inherit" => ()
         //start functions
-        "start" => (T<obj> ^-> T<unit>)?app ^-> AppManager
-        "start" => (T<obj> ^-> T<unit>)?app * T<string>?canvasId ^-> AppManager
-        "start" => (T<obj> ^-> T<unit>)?app * T<float>?width * T<float>?height ^-> AppManager
-        "start" => (T<obj> ^-> T<unit>)?app * T<string>?elementId * T<float>?width * T<float>?height ^-> AppManager
+        "start" => (AppManager ^-> T<unit>)?app ^-> AppManager
+        "start" => (AppManager ^-> T<unit>)?app * T<string>?canvasId ^-> AppManager
+        "start" => (AppManager ^-> T<unit>)?app * T<float>?width * T<float>?height ^-> AppManager
+        "start" => (AppManager ^-> T<unit>)?app * T<string>?elementId * T<float>?width * T<float>?height ^-> AppManager
         //utility functions
         "getRandomNum" => T<float>?min * T<float>?max ^-> T<float>
         "getRandomInt" => T<int>?min * T<int>?max ^-> T<int>

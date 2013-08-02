@@ -90,4 +90,3 @@ let Obj =
 let Shape =
     Class "Shape"
     |=> Inherits Obj
-    
