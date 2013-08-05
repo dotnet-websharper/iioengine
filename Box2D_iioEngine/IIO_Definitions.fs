@@ -206,6 +206,7 @@ let AppManager =
         "setBGPattern" => T<string>?imagePath ^-> T<bool>
         "setBGPattern" => T<string>?imagePath * T<float>?c ^-> T<bool>
         "setBGImage" => T<string>?imagePath ^-> self
+        "setBGImage" => T<Element>?img ^-> self
         "setBGImage" => T<string>?imagePath * T<float>?c ^-> self
         //Object Control Functions
         Generic - fun t -> "addObj" => t?obj * !?T<int>?c ^-> t

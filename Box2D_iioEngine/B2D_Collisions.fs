@@ -262,7 +262,7 @@ let b2ShapeClass =
         "TestOverlap" => b2Shape?shape1 * b2Transform?transform1 * b2Shape?shape2 * b2Transform?transform2 ^-> T<bool>
         "TestPoint" => b2Transform?xf * b2Vec2?p ^-> T<bool>
         //interface stuff
-        "prepGraphics" => T<int>?scale ^-> T<unit>
+        "prepGraphics" => T<float>?scale ^-> T<unit>
         "draw" => Canvas2DContext ^-> T<unit>
         "setAlpha" => T<float>?alpha ^-> T<unit>
         "setStrokeStyle" => (T<string> + T<obj>)?style * !?T<float>?width  ^-> T<unit>

@@ -348,7 +348,7 @@ let b2JointClass =
         "IsActive" => T<unit> ^-> T<bool>
         Generic - fun t -> "SetUserData" => t?data ^-> T<unit>
         //interface stuff
-        "prepGraphics" => T<int>?scale ^-> T<unit>  
+        "prepGraphics" => T<float>?scale ^-> T<unit>  
         "draw" => Canvas2DContext ^-> T<unit>
         "setAlpha" => T<float>?alpha ^-> T<unit>
         "setStrokeStyle" => (T<string> + T<obj>)?style * !?T<float>?width  ^-> T<unit>
