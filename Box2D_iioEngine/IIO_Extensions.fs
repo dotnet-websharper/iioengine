@@ -1,16 +1,17 @@
-﻿module IIOEngine.Extensions
+﻿module IIO_Extensions
 
 open IntelliFactory.WebSharper.Dom
+open IntelliFactory.WebSharper.Html.Default
 open IntelliFactory.WebSharper.InterfaceGenerator
-open IIOEngine.Abstracts
-open IIOEngine.Definition
+open IIO_Abstracts
+open IIO_Definition
 
 let Canvas2DContext = Type.New()
 
 //Graphics Engine!
-let Img =
-    Class "Img"
-    |+> Protocol [
+let IioImg =
+    Interface "IioImg"
+    |+> [
         //image propterties
         "pos" =@ Vec
         "size" =@ Vec
@@ -22,8 +23,8 @@ let ShapeExtensions =
     Protocol [
         "clearSelf" => Canvas2DContext ^-> T<unit>   
         "setFillStyle" => T<float> + T<float> + T<float> ^-> T<unit>
-        "addImage" => T<obj>?img ^-> T<unit>
-        "addImage" => T<string>?src * (T<obj> ^-> T<unit>)?onloadCallback ^-> T<unit>
+        "addImage" => T<Element>?img ^-> T<unit>
+        "addImage" => T<string>?src * !?(T<obj> ^-> T<unit>)?onloadCallback ^-> T<unit>
         "flipImage" => T<bool>?yes ^-> T<unit>
         "setImgOffset" => Vec?offset ^-> T<unit>
         "setImgOffset" => T<float>?offsetX * T<float>?offsetY ^-> T<unit>
@@ -162,4 +163,3 @@ let Kinematics =
         "setBound" => T<string>?boundName * T<float>?boundCoordinate * !?(T<obj> ^-> T<unit>)?callback ^-> T<unit>
         "setBounds" => T<float>?top * T<float>?right * T<float>?bottom * T<float>?left * (T<obj> ^-> T<unit>)?callback ^-> T<unit>
     ]
-

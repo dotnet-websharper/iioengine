@@ -1,4 +1,4 @@
-﻿module IIOEngine.Definition
+﻿module IIO_Definition
 
 open IntelliFactory.WebSharper.InterfaceGenerator
 
@@ -6,7 +6,7 @@ open IntelliFactory.WebSharper.Html
 open IntelliFactory.WebSharper.Html5
 open IntelliFactory.WebSharper.Dom
 
-open IIOEngine.Abstracts
+open IIO_Abstracts
 
 //Shapes
 let Circle =
@@ -179,7 +179,7 @@ let AppManager =
     Class "AppManager"
     |=> self
     |+> Protocol [
-        "canvas" =@ T<IntelliFactory.WebSharper.Html5.CanvasElement>
+        "canvas" =@ T<CanvasElement>
         "context" =@ Canvas2DContext
         "cnvs" =@ T<obj[]>
         "ctxs" =@ T<obj[]>
@@ -250,4 +250,3 @@ let Iio =
         "polyXcircle" => Poly?poly * Circle?circle ^-> T<bool>
         "addEvent" => T<IntelliFactory.WebSharper.Html5.CanvasElement>?obj * T<string>?evt * (T<obj> ^-> T<unit>)?fn * !?T<obj>?capt ^-> T<bool>
     ] 
-                                                                                         

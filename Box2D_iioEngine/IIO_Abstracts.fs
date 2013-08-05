@@ -1,4 +1,4 @@
-﻿module IIOEngine.Abstracts
+﻿module IIO_Abstracts
 
 open IntelliFactory.WebSharper.InterfaceGenerator
 open IntelliFactory.WebSharper.Dom
