@@ -17,7 +17,7 @@ module Something =
 
     let Assembly =
         Assembly [
-            Namespace "IntelliFactory.WebSharper.Box2D_iioEngine" [
+            Namespace "IntelliFactory.WebSharper.IIOEngine" [
                 b2AABB
                 b2ContactID
                 b2ContactPoint

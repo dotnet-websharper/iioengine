@@ -1,0 +1,11 @@
+<ivy-module version="2.0">
+  <info organisation="IntelliFactory" module="WebSharper.IIOEngine" revision="2.5" />
+  <publications>
+    <artifact name="IntelliFactory.WebSharper.IIOEngine" type="bin" ext="dll" />
+    <artifact name="IntelliFactory.WebSharper.IIOEngine" type="debug" ext="pdb" />
+    <artifact name="IntelliFactory.WebSharper.IIOEngine" type="doc" ext="xml" />
+  </publications>
+  <dependencies>
+    <dependency name="WebSharper" rev="latest.integration" />
+  </dependencies>
+</ivy-module>

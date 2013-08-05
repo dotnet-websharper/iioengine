@@ -26,12 +26,14 @@
     <OutputType>Library</OutputType>
     <Name>Box2D_iioEngine</Name>
     <RootNamespace>$(Name)</RootNamespace>
-    <AssemblyName>$(Name)</AssemblyName>
+    <AssemblyName>Intellifactory.WebSharper.IIOEngine</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets" />
-  <Import Project="WebSharper.targets" Condition="Exists('WebSharper.targets')" />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>bin/Debug\Intellifactory.WebSharper.IIOEngine.XML</DocumentationFile>
+  </PropertyGroup>
+  <Import Project="..\.build\lib\IntelliFactory.WebSharper.InterfaceGenerator.targets" />
   <ItemGroup>
     <Compile Include="IIO_Abstracts.fs" />
     <Compile Include="IIO_Definitions.fs" />
@@ -41,8 +43,6 @@
     <Compile Include="B2D_Common.fs" />
     <Compile Include="B2D_Dynamics.fs" />
     <Compile Include="Main.fs" />
-    <None Include="WebSharper.targets" />
-    <None Include="packages.config" />
     <None Include="Resources.cs" />
     <None Include="Marker.cs" />
     <EmbeddedResource Include="iioEngine-1.2.2.min.js" />
