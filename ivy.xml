@@ -3,7 +3,6 @@
   <publications>
     <artifact name="IntelliFactory.WebSharper.IIOEngine" type="bin" ext="dll" />
     <artifact name="IntelliFactory.WebSharper.IIOEngine" type="debug" ext="pdb" />
-    <artifact name="IntelliFactory.WebSharper.IIOEngine" type="doc" ext="xml" />
   </publications>
   <dependencies>
     <dependency name="WebSharper" rev="latest.integration" />
