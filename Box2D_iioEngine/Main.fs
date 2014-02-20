@@ -1,9 +1,10 @@
 namespace Box2D_iioEngine
 
-module Something =
+open IntelliFactory.WebSharper.InterfaceGenerator
+
+module Definition =
 
     open IntelliFactory.WebSharper
-    open IntelliFactory.WebSharper.InterfaceGenerator
     
     open B2D_CommonMath
     open B2D_Collisions
@@ -114,7 +115,10 @@ module Something =
             ]
         ]
 
-module Main =
-    open IntelliFactory.WebSharper.InterfaceGenerator
+[<Sealed>]
+type IIOEngineExtension() =
+    interface IExtension with
+        member ext.Assembly = Definition.Assembly
 
-    do Compiler.Compile stdout Something.Assembly
+[<assembly: Extension(typeof<IIOEngineExtension>)>]
+do ()

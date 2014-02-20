@@ -43,8 +43,6 @@
     <Compile Include="B2D_Common.fs" />
     <Compile Include="B2D_Dynamics.fs" />
     <Compile Include="Main.fs" />
-    <None Include="Resources.cs" />
-    <None Include="Marker.cs" />
     <EmbeddedResource Include="iioEngine-1.2.2.min.js" />
     <EmbeddedResource Include="Box2dWeb-2.1.a.3.min.js" />
   </ItemGroup>
