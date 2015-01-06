@@ -1,7 +1,6 @@
 ﻿module B2D_Common
 
 open IntelliFactory.WebSharper.InterfaceGenerator
-open IntelliFactory.WebSharper.Html5
 
 open IIO_Abstracts
 open IIO_Definition

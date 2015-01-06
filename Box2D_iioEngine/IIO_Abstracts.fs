@@ -1,8 +1,8 @@
 ﻿module IIO_Abstracts
 
 open IntelliFactory.WebSharper.InterfaceGenerator
-open IntelliFactory.WebSharper.Dom
-    
+open IntelliFactory.WebSharper.JavaScript.Dom
+
 //Abstracts
 let Vec =
     let self = Type.New()

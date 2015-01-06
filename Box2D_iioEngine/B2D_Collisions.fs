@@ -1,9 +1,7 @@
 ﻿module B2D_Collisions
 
 open IntelliFactory.WebSharper.InterfaceGenerator
-open IntelliFactory.WebSharper.Html5
-open IntelliFactory.WebSharper.Dom
-open IntelliFactory.WebSharper.Html.Default
+open IntelliFactory.WebSharper.JavaScript.Dom
 open IIO_Abstracts
 open IIO_Definition
 open IIO_Extensions

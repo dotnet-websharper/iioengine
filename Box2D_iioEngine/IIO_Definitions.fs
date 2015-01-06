@@ -2,9 +2,8 @@
 
 open IntelliFactory.WebSharper.InterfaceGenerator
 
-open IntelliFactory.WebSharper.Html
-open IntelliFactory.WebSharper.Html5
-open IntelliFactory.WebSharper.Dom
+open IntelliFactory.WebSharper
+open IntelliFactory.WebSharper.JavaScript.Dom
 
 open IIO_Abstracts
 
@@ -179,7 +178,7 @@ let AppManager =
     Class "AppManager"
     |=> self
     |+> Protocol [
-        "canvas" =@ T<CanvasElement>
+        "canvas" =@ T<JavaScript.CanvasElement>
         "context" =@ Canvas2DContext
         "cnvs" =@ T<obj[]>
         "ctxs" =@ T<obj[]>
@@ -249,5 +248,5 @@ let Iio =
         "polyXpoly" => Poly?poly1 * Poly?poly2 ^-> T<bool>
         "circleXcircle" => Circle?circle1 * Circle?circle2 ^-> T<bool>
         "polyXcircle" => Poly?poly * Circle?circle ^-> T<bool>
-        "addEvent" => T<IntelliFactory.WebSharper.Html5.CanvasElement>?obj * T<string>?evt * (T<obj> ^-> T<unit>)?fn * !?T<obj>?capt ^-> T<bool>
+        "addEvent" => T<JavaScript.CanvasElement>?obj * T<string>?evt * (T<obj> ^-> T<unit>)?fn * !?T<obj>?capt ^-> T<bool>
     ] 

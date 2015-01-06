@@ -1,7 +1,6 @@
 ﻿module IIO_Extensions
 
-open IntelliFactory.WebSharper.Dom
-open IntelliFactory.WebSharper.Html.Default
+open IntelliFactory.WebSharper.JavaScript.Dom
 open IntelliFactory.WebSharper.InterfaceGenerator
 open IIO_Abstracts
 open IIO_Definition
