@@ -1,7 +1,7 @@
 ﻿module B2D_Collisions
 
-open IntelliFactory.WebSharper.InterfaceGenerator
-open IntelliFactory.WebSharper.JavaScript.Dom
+open WebSharper.InterfaceGenerator
+open WebSharper.JavaScript.Dom
 open IIO_Abstracts
 open IIO_Definition
 open IIO_Extensions
@@ -14,25 +14,25 @@ let Canvas2DContext = T<obj>
 
 let b2RayCastInput =
     Class "Box2D.Collision.b2RayCastInput"
-    |+> Protocol [
+    |+> Instance [
         "maxFraction" =@ T<float>
         "p1" =@ b2Vec2
         "p2" =@ b2Vec2
     ]
-    |+> [
+    |+> Static [
         Constructor <| b2Vec2?p1 * b2Vec2?p2 * T<float>?maxFraction
     ]
 
 let b2RayCastOutput =
     Class "Box2D.Collision.b2RayCastOutput"
-    |+> Protocol [
+    |+> Instance [
         "fraction" =@ T<float>
         "normal" =@ b2Vec2
     ]
 
 let Vector =
     Class "Vector"
-    |+> Protocol [
+    |+> Instance [
         "x" =@ T<float>
         "y" =@ T<float>
     ]
@@ -40,7 +40,7 @@ let Vector =
 let b2AABB =
     let self = Type.New()
     Class "Box2D.Collision.b2AABB"
-    |+> Protocol [
+    |+> Instance [
         "lowerBound" =@ b2Vec2
         "upperBound" =@ b2Vec2
         "Combine" => self?aabb1 * self?aabb2 ^-> self
@@ -51,14 +51,14 @@ let b2AABB =
         "RayCast" => b2RayCastOutput?output * b2RayCastInput?input ^-> T<bool>
         "TestOverlap" => self?other ^-> T<bool>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
     ]
 
 let b2ContactID =
     let self = Type.New()
     Class "Box2D.Collision.b2ContactID"
-    |+> Protocol [
+    |+> Instance [
         "features" =@ Features
         "key" =@ T<int>
         "Copy" => T<unit> ^-> self
@@ -68,7 +68,7 @@ let b2ContactID =
 let b2ContactPoint =
     let self = Type.New()
     Class "Box2D.Collision.b2ContactPoint"
-    |+> Protocol [
+    |+> Instance [
         "friction" =@ T<float>
         "id" =@ b2ContactID
         "normal" =@ b2Vec2
@@ -83,7 +83,7 @@ let b2ContactPoint =
 let b2DistanceInput =
     let self = Type.New()
     Class "Box2D.Collision.b2DistanceInput"
-    |+> Protocol [
+    |+> Instance [
         "proxyA" =@ self
         "proxyB" =@ self
         "transformA" =@ b2Transform
@@ -93,7 +93,7 @@ let b2DistanceInput =
 
 let b2DistanceOutput =
     Class "Box2D.Collision.b2DistanceOutput"
-    |+> Protocol [
+    |+> Instance [
         "distance" =@ T<float>
         "iterations" =@ T<int>
         "pointA" =@ b2Vec2
@@ -102,7 +102,7 @@ let b2DistanceOutput =
 
 let b2DistanceProxy =
     Class "Box2D.Collision.b2DistanceProxy"
-    |+> Protocol [
+    |+> Instance [
         "m_count" =@ T<int>
         "m_radius" =@ T<float>
         "m_vertices" =@ Vector
@@ -129,7 +129,7 @@ let b2DynamicTreeBroadPhase =
     let self = Type.New()
     Class "Box2D.Collision.b2DynamicTreeBroadPhase"
     |=> Implements [ IBroadPhase ]
-    |+> Protocol [
+    |+> Instance [
         Generic - fun t -> "CreateProxy" => b2AABB?aabb * t?userData ^-> t
         Generic - fun t -> "DestroyProxy" => t?proxy ^-> T<unit>
         Generic - fun t -> "GetFatAABB" => t?proxy ^-> b2AABB
@@ -147,7 +147,7 @@ let b2DynamicTreeBroadPhase =
 let b2Manifold =
     let self = Type.New()
     Class "Box2D.Collision.b2Manifold"
-    |+> Protocol [
+    |+> Instance [
         "m_localPlaneNormal" =@ b2Vec2
         "m_localPoint" =@ b2Vec2
         "m_pointCount" =@ T<int>
@@ -157,7 +157,7 @@ let b2Manifold =
         "Reset"=> T<unit> ^-> T<unit>
         "Set" => self?m ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         "e_circles" =! T<int>
         "e_faceA" =! T<int>
         "e_faceB" =! T<int>
@@ -166,7 +166,7 @@ let b2Manifold =
 let b2ManifoldPoint =
     let self = Type.New()
     Class "Box2D.Collision.b2ManifoldPoint"
-    |+> Protocol [
+    |+> Instance [
         "m_id" =@ b2ContactID
         "m_localPoint" =@ b2Vec2
         "m_normalImpulse" =@ T<float>
@@ -177,7 +177,7 @@ let b2ManifoldPoint =
 
 let b2OBB =
     Class "Box2D.Collision.b2OBB"
-    |+> Protocol [
+    |+> Instance [
         "center" =@ b2Vec2
         "extents" =@ b2Vec2
         "R" =@ b2Math22
@@ -186,7 +186,7 @@ let b2OBB =
 let b2Segment =
     let self = Type.New()
     Class "b2Segment"
-    |+> Protocol [
+    |+> Instance [
         "p1" =@ b2Vec2
         "p2" =@ b2Vec2
         "Extend" => b2AABB?aabb ^-> T<unit>
@@ -197,7 +197,7 @@ let b2Segment =
 
 let b2SimplexCache =
     Class "Box2D.Collision.b2SimplexCache"
-    |+> Protocol [
+    |+> Instance [
         "count" =@ T<int>
         "indexA" =@ Vector
         "indexB" =@ Vector
@@ -206,7 +206,7 @@ let b2SimplexCache =
 
 let b2TOIInput =
     Class "Box2D.Collision.b2TOIInput"
-    |+> Protocol [
+    |+> Instance [
         "proxyA" =@ b2DistanceProxy
         "sweepA" =@ b2Sweep
         "sweepB" =@ b2Sweep
@@ -215,7 +215,7 @@ let b2TOIInput =
 
 let b2WorldManifold =
     Class "Box2D.Collision.b2WorldManifold"
-    |+> Protocol [
+    |+> Instance [
         "m_normal" =@ b2Vec2
         "m_points" =@ Vector
         "Initialize" =@ b2Manifold?manifold * b2Transform?xfA * T<float>?radiusA * b2Transform?xfB * T<float>?radiusB ^-> T<unit>
@@ -223,7 +223,7 @@ let b2WorldManifold =
 
 let FeaturesClass =
     Class "Box2D.Collision.Features"
-    |+> Protocol [
+    |+> Instance [
         "flip" =@ T<int>
         "incidentEdge" =@ T<int>
         "incidentVertex" =@ T<int>
@@ -232,7 +232,7 @@ let FeaturesClass =
 
 let b2EdgeChainDef =
     Class "b2EdgeChainDef"
-    |+> Protocol [
+    |+> Instance [
         "isALoop" =@ T<bool>
         "vertexCount" =@ T<int>
         "vertices" =@ T<float>
@@ -240,7 +240,7 @@ let b2EdgeChainDef =
 
 let b2MassData =
     Class "Box2D.Collision.Shapes.b2MassData"
-    |+> Protocol [
+    |+> Instance [
         "center" =@ b2Vec2
         "I" =@ T<float>
         "mass" =@ T<float>  
@@ -249,7 +249,7 @@ let b2MassData =
 let b2ShapeClass =
     Class "Box2D.Collision.Shapes.b2Shape"
     |=> b2Shape
-    |+> Protocol [
+    |+> Instance [
         "ComputeAABB" => b2AABB?aabb * b2Transform?xf ^-> T<unit>
         "ComputeMass" => b2MassData?massData * T<float>?density ^-> T<unit>
         "ComputeSubmergedArea" => b2Vec2?normal * T<float>?number ^-> T<unit>
@@ -296,7 +296,7 @@ let b2ShapeClass =
         "stopAnim" => T<string>?tag * T<obj>?ctx ^-> T<unit>
         "stopAnim" => T<float>?tag * T<obj>?ctx ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         "e_hitCollide" =@ T<int>
         "e_missCollide" =@ T<int>
         "e_startsInsideCollide" =@ T<int>
@@ -305,7 +305,7 @@ let b2ShapeClass =
 let b2CircleShape =
     Class "Box2D.Collision.Shapes.b2CircleShape"
     |=> Inherits b2ShapeClass
-    |+> Protocol [
+    |+> Instance [
         "ComputeAABB" => b2AABB?aabb * b2Transform?transform ^-> T<unit>
         "ComputeMass" => b2MassData?massData * T<float>?density ^-> T<unit>
         "ComputeSubmergedArea" => b2Vec2?normal * T<float>?offset * b2Transform?xf * b2Vec2?c ^-> T<float>
@@ -321,7 +321,7 @@ let b2CircleShape =
         "drawReferenceLine" => T<bool>?turnOn ^-> T<unit>
         "setPolyDraw" => T<bool>?turnOn ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<float>?radius
     ]
 
@@ -330,7 +330,7 @@ let b2PolygonShape =
     Class "Box2D.Collision.Shapes.b2PolygonShape"
     |=> self
     |=> Inherits b2ShapeClass
-    |+> Protocol [
+    |+> Instance [
         "ComputeAABB" => b2AABB?aabb * b2Transform?xf ^-> T<unit>
         "ComputeMass" => b2MassData?massData * T<float>?density ^-> T<unit>
         "ComputeSubmergedArea" => b2Vec2?normal * T<float>?offset * b2Transform?xf * b2Vec2?c ^-> T<float>
@@ -350,7 +350,7 @@ let b2PolygonShape =
         "SetAsOrientedBox" => T<float>?hx * T<float>?hy * b2Vec2?center ^-> T<unit>
         "TestPoint" => b2Transform?xf * b2Vec2?p ^-> T<bool>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
         "AsArray" => T<obj[]>?vertices * T<int>?vertexCount ^-> self
         "AsBox" => T<float>?hx * T<float>?hy ^-> self

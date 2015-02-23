@@ -33,7 +33,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>bin/Debug\Intellifactory.WebSharper.IIOEngine.XML</DocumentationFile>
   </PropertyGroup>
-  <Import Project="..\.build\lib\IntelliFactory.WebSharper.InterfaceGenerator.targets" />
+  <Import Project="..\.build\lib\WebSharper.InterfaceGenerator.targets" />
   <ItemGroup>
     <Compile Include="IIO_Abstracts.fs" />
     <Compile Include="IIO_Definitions.fs" />

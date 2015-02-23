@@ -1,6 +1,6 @@
 ﻿module B2D_Dynamics
 
-open IntelliFactory.WebSharper.InterfaceGenerator
+open WebSharper.InterfaceGenerator
 
 open IIO_Abstracts
 open IIO_Definition
@@ -27,7 +27,7 @@ let b2Contact =
     let self = Type.New()
     Class "Box2D.Dynamics.Contacts.b2Contact"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "FlagForLitering" => T<unit> ^-> T<unit>
         "GetFixtureA" => T<unit> ^-> b2Fixture
         "GetFixtureB" => T<unit> ^-> b2Fixture
@@ -46,7 +46,7 @@ let b2ContactEdge =
     let self = Type.New()
     Class "Box2D.Dynamics.Contacts.b2ContactEdge"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "contact" =@ b2Contact
         "next" =@ self
         "other" =@ b2Body
@@ -55,7 +55,7 @@ let b2ContactEdge =
 
 let b2ContactResult =
     Class "Box2D.Dynamics.Contacts.b2ContactResult"
-    |+> Protocol [
+    |+> Instance [
         "id" =@ b2ContactID
         "normal" =@ b2Vec2
         "normalImpulse" =@ T<float>
@@ -69,7 +69,7 @@ let b2ContactResult =
 let b2BodyClass =
     Class "Box2D.Dynamics.b2Body"
     |=> b2Body
-    |+> Protocol [
+    |+> Instance [
         "ApplyForce" => b2Vec2?force * b2Vec2?point ^-> T<unit>
         "ApplyImpulse" => b2Vec2?impulse * b2Vec2?point ^-> T<unit>
         "ApplyTorque" => T<float>?torque ^-> T<unit>
@@ -127,7 +127,7 @@ let b2BodyClass =
         Generic - fun t -> "SetUserData" => t?data ^-> T<unit>
         Generic - fun t -> "Split" => (T<unit> * t)?callback ^-> b2Body
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
         "b2_dynamicBody" =@ T<int>
         "b2_kincematicBody" =@ T<int>
@@ -137,7 +137,7 @@ let b2BodyClass =
 let b2FixtureClass =
     Class "Box2D.Dynamics.b2Fixture"
     |=> b2Fixture
-    |+> Protocol [
+    |+> Instance [
         "GetAABB" => T<unit> ^-> b2AABB
         "GetBody" => T<unit> ^-> b2Body
         "GetDensity" => T<unit> ^-> T<float>
@@ -159,14 +159,14 @@ let b2FixtureClass =
         Generic - fun t -> "SetUserData" => t?data ^-> T<unit>
         "TestPoint" => b2Vec2?p ^-> T<bool>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
     ]
 
 let b2FixtureDefClass =
     Class "Box2D.Dynamics.b2FixtureDef"
     |=> b2FixtureDef
-    |+> Protocol [
+    |+> Instance [
         "density" =@ T<float>
         "filter" =@ b2FilterData
         "friction" =@ T<float>
@@ -175,14 +175,14 @@ let b2FixtureDefClass =
         "shape" =@ b2Shape
         "userData" =@ T<obj>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
     ]
 
 let b2BodyDefClass =
     Class "Box2D.Dynamics.b2BodyDef"
     |=> b2BodyDef
-    |+> Protocol [
+    |+> Instance [
         "active" =@ T<bool>
         "allowSleep" =@ T<bool>
         "angle" =@ T<float>
@@ -198,27 +198,27 @@ let b2BodyDefClass =
         "type" =@ T<int>
         "userData" =@ T<obj>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
     ]
 
 let b2ContactFilter =
     Class "Box2D.Dynamics.b2ContactFilter"
-    |+> Protocol [
+    |+> Instance [
         Generic - fun t -> "RayCollide" => t?userData * b2Fixture?fixture ^-> T<bool>
         "ShouldCollide" => b2Fixture?fixtureA * b2Fixture?fixtureB ^-> T<bool>
     ]
 
 let b2ContactImpulse =
     Class "Box2D.Dynamics.b2ContactImpulse"
-    |+> Protocol [
+    |+> Instance [
         "normalImpulses" =@ Vector
         "tangentImpulses" =@ Vector
     ]
 
 let b2ContactListener =
     Class "Box2D.Dynamics.b2ContactListener"
-    |+> Protocol [
+    |+> Instance [
         "BeginContact" => b2Contact?contact ^-> T<unit>
         "EndContact" => b2Contact?contact ^-> T<unit>
         "PostSolve" => b2Contact?contact * b2ContactImpulse?impulse ^-> T<unit>
@@ -229,7 +229,7 @@ let b2DebugDraw =
     let self = Type.New()
     Class "Box2D.Dynamics.b2DebugDraw"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "AppendFlags" => T<int>?flags ^-> T<unit>
         "ClearFlags" => T<int>?flags ^-> T<unit>
         "DrawCircle" => b2Vec2?center * T<float>?radius * b2Color?color ^-> T<unit>
@@ -253,7 +253,7 @@ let b2DebugDraw =
         "SetSprite" => Box2DSprite?sprite ^-> T<unit>
         "SetXFormScale" => T<float>?xformScale ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>                    
         "e_aabbBit" =@ T<int>
         "e_centerOfMassBit" =@ T<int>
@@ -265,7 +265,7 @@ let b2DebugDraw =
 
 let b2DestructionListener =
     Class "Box2D.Dynamics.b2DestructionListener"
-    |+> Protocol [
+    |+> Instance [
         "SayGoodbyeFixture" => b2Fixture?fixture ^-> T<unit>
         "SayGoodbyeJoint" => b2Joint?joint ^-> T<unit>
     ]
@@ -273,10 +273,10 @@ let b2DestructionListener =
 let b2FilterDataClass =
     Class "Box2D.Dynamics.b2FilterData"
     |=> b2FilterData
-    |+> Protocol [
+    |+> Instance [
         "Copy" => T<unit> ^-> b2FilterData
     ]
-    |+> [
+    |+> Static [
         "categoryBits" =@ T<int>
         "groupIndex" =@ T<int>
         "maskBits" =@ T<int>
@@ -286,7 +286,7 @@ let b2FilterDataClass =
 let b2WorldClass =
     Class "Box2D.Dynamics.b2World"
     |=> b2World
-    |+> Protocol [
+    |+> Instance [
         "AddController" => b2Controller?c ^-> b2Controller
         "ClearForces" => T<unit> ^-> T<unit>
         "CreateBody" => b2BodyDef?def ^-> b2Body
@@ -324,7 +324,7 @@ let b2WorldClass =
         "Step" => T<float>?dt * T<int>?velocityIterations * T<int>?positionsIterations ^-> T<unit>
         "Validate"=> T<unit> ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         Constructor <| b2Vec2?gravity * T<bool>?doSleep
         "e_locked" =@ T<int>
         "e_newFixture" =@ T<int>
@@ -334,7 +334,7 @@ let b2WorldClass =
 let b2JointClass =
     Class "Box2D.Dynamics.Joints.b2Joint"
     |=> b2Joint
-    |+> Protocol [
+    |+> Instance [
         "GetAnchorA" => T<unit> ^-> b2Vec2
         "GetAnchorB" => T<unit> ^-> b2Vec2
         "GetBodyA" => T<unit> ^-> b2Vec2
@@ -364,21 +364,21 @@ let b2JointClass =
 
 let b2JointDefClass =
     Class "Box2D.Dynamics.Joints.b2JointDef"
-    |+> Protocol [
+    |+> Instance [
         "bodyA" =@ b2Body
         "bodyB" =@ b2Body
         "collideConnected" =@ T<bool>
         "type" =@ T<int>
         "userData" =@ T<obj>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
     ]
 
 let b2DistanceJoint =
     Class "Box2D.Dynamics.Joints.b2DistanceJoint"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "GetAnchorA" => T<unit> ^-> b2Vec2
         "GetAnchorB" => T<unit> ^-> b2Vec2
         "GetDampingRatio" => T<unit> ^-> T<float>
@@ -394,7 +394,7 @@ let b2DistanceJoint =
 let b2DistanceJointDef =
     Class "Box2D.Dynamics.Joints.b2DistanceJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "DampingRatio" =@ T<float>
         "frequencyHZ" =@ T<float>
         "length" =@ T<float>
@@ -406,7 +406,7 @@ let b2DistanceJointDef =
 let b2FrictionJoint =
     Class "Box2D.Dynamics.Joints.b2FrictionJoint"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "m_angularMass" =@ T<float>
         "m_linearMass" =@ b2Math22
         "GetAnchorA" => T<unit> ^-> b2Vec2
@@ -422,7 +422,7 @@ let b2FrictionJoint =
 let b2FrictionJointDef =
     Class "Box2D.Dynamics.Joints.b2FrictionJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "localAnchorA" =@ b2Vec2
         "localAnchorB" =@ b2Vec2
         "maxForce" =@ T<float>
@@ -433,7 +433,7 @@ let b2FrictionJointDef =
 let b2GearJoint =
     Class "Box2D.Dynamics.Joints.b2GearJoint"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "GetAnchorA" => T<unit> ^-> b2Vec2
         "GetAnchorB" => T<unit> ^-> b2Vec2
         "GetRatio" => T<unit> ^-> T<float>
@@ -445,7 +445,7 @@ let b2GearJoint =
 let b2GearJointDef =
     Class "Box2D.Dynamics.Joints.b2GearJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "joint1" =@ b2Joint
         "joint2" =@ b2Joint
         "ratio" =@ T<float>
@@ -454,7 +454,7 @@ let b2GearJointDef =
 let b2JointEdgeClass =
     Class "Box2D.Dynamics.Joints.b2JointEdge"
     |=> b2JointEdge
-    |+> Protocol [
+    |+> Instance [
         "joint" =@ b2Joint
         "next" =@ b2JointEdge
         "other" =@ b2Body
@@ -464,7 +464,7 @@ let b2JointEdgeClass =
 let b2LineJoint =
     Class "Box2D.Dynamics.Joints.b2LineJoint"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "EnableLimit" => T<bool>?flag ^-> T<unit>
         "EnableMotor" => T<bool>?flag ^-> T<unit>
         "GetAnchorA" => T<unit> ^-> b2Vec2
@@ -488,7 +488,7 @@ let b2LineJoint =
 let b2LineJointDef =
     Class "Box2D.Dynamics.Joints.b2LineJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "enableLimit" =@ T<bool>
         "enableMotor" =@ T<bool>
         "localAnchorA" =@ b2Vec2
@@ -504,7 +504,7 @@ let b2LineJointDef =
 let b2MouseJoint =
     Class "Box2D.Dynamics.Joints.b2MouseJoint"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "GetAnchorA" => T<unit> ^-> b2Vec2
         "GetAnchorB" => T<unit> ^-> b2Vec2
         "GetDampingRatio" => T<unit> ^-> T<float>
@@ -518,20 +518,20 @@ let b2MouseJoint =
         "SetMaxForce" => T<float>?maxForce ^-> T<unit>
         "SetTarget" => b2Vec2?target ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
     ]
 
 let b2MouseJointDef =
     Class "Box2D.Dynamics.Joints.b2MouseJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "dampingRatio" =@ T<float>
         "frequencyHz" =@ T<float>
         "maxForce" =@ T<float>
         "target" =@ b2Vec2
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit>
     ]
 
@@ -539,7 +539,7 @@ let b2MouseJointDef =
 let b2PrismaticJoint =
     Class "Box2D.Dynamics.Joints.b2PrismaticJoint"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "EnableLimit" => T<bool>?flag ^-> T<unit>
         "EnableMotor" => T<bool>?flag ^-> T<unit>
         "GetAnchorA" => T<unit> ^-> b2Vec2
@@ -562,7 +562,7 @@ let b2PrismaticJoint =
 let b2PrismaticJointDef =
     Class "Box2D.Dynamics.Joints.b2PrismaticJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "enableLimit" =@ T<bool>
         "enableMotor"=@ T<bool>
         "localAnchorA" =@ b2Vec2
@@ -579,7 +579,7 @@ let b2PrismaticJointDef =
 let b2PulleyJoint =
     Class "Box2D.Dynamics.Joints.b2PulleyJoint"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "GetAnchorA" => T<unit> ^-> b2Vec2
         "GetAnchorB" => T<unit> ^-> b2Vec2
         "GetGroundAnchorA" => T<unit> ^-> b2Vec2
@@ -594,7 +594,7 @@ let b2PulleyJoint =
 let b2PulleyJointDef =
     Class "Box2D.Dynamics.Joints.b2PulleyJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "groundAnchorA" =@ b2Vec2
         "groundAnchorB" =@ b2Vec2
         "lengthA" =@ T<float>
@@ -610,7 +610,7 @@ let b2PulleyJointDef =
 let b2RevoluteJoint =
     Class "Box2D.Dynamics.Joints.b2RevoluteJoint"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "EnableLimit" => T<bool>?flag ^-> T<unit>
         "EnableMotor" => T<bool>?flag ^-> T<unit>
         "GetAnchorA" => T<unit> ^-> b2Vec2
@@ -633,7 +633,7 @@ let b2RevoluteJoint =
 let b2RevoluteJointDef =
     Class "Box2D.Dynamics.Joints.b2RevoluteJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "enableLimit" =@ T<bool>
         "enableMotor" =@ T<bool>
         "localAnchorA" =@ b2Vec2
@@ -649,7 +649,7 @@ let b2RevoluteJointDef =
 let b2WeldJoint =
     Class "Box2D.Dynamics.Joints.b2RevoulteJointDef"
     |=> Inherits b2Joint
-    |+> Protocol [
+    |+> Instance [
         "GetAnchorA" => T<unit> ^-> b2Vec2
         "GetAnchorB" => T<unit> ^-> b2Vec2
         "GetReactionForce" => T<float>?inv_dt ^-> b2Vec2
@@ -659,7 +659,7 @@ let b2WeldJoint =
 let b2WeldJointDef =
     Class "Box2D.Dynamics.Joints.b2WeldJointDef"
     |=> Inherits b2JointDefClass
-    |+> Protocol [
+    |+> Instance [
         "localAnchorA" =@ b2Vec2
         "localAnchorB" =@ b2Vec2
         "referenceAngle" =@ T<float>
@@ -669,7 +669,7 @@ let b2WeldJointDef =
 let b2ControllerClass =
     Class "Box2D.Dynamics.Controllers.b2Controller"
     |=> b2Controller
-    |+> Protocol [
+    |+> Instance [
         "m_bodyCount" =@ T<int>
         "m_bodyList" =@ b2ControllerEdge
         "AddBody" => b2Body?body ^-> T<unit>
@@ -685,7 +685,7 @@ let b2ControllerClass =
 let b2BuoyancyController =
     Class "Box2D.Dynamics.Controllers.b2BuoyancyController"
     |=> Inherits b2Controller
-    |+> Protocol [
+    |+> Instance [
         "angularDrag" =@ T<float>
         "density" =@ T<float>
         "gravity" =@ b2Vec2
@@ -698,14 +698,14 @@ let b2BuoyancyController =
         "Draw" => b2DebugDraw?debugDraw ^-> T<unit>
         "Step" => b2TimeStep?step ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<unit> 
     ]
 
 let b2ConstantAccelController =
     Class "Box2D.Dynamics.Controllers.b2ConstantAccelController"
     |=> Inherits b2Controller
-    |+> Protocol [
+    |+> Instance [
         "A" =@ b2Vec2
         "Step" =@ b2TimeStep?step ^-> T<unit> 
     ]
@@ -713,7 +713,7 @@ let b2ConstantAccelController =
 let b2ConstantForceController =
     Class "Box2D.Dynamics.Controllers.b2ConstantForceController"
     |=> Inherits b2Controller
-    |+> Protocol [
+    |+> Instance [
         "F" =@ b2Vec2
         "Step" => b2TimeStep?step ^-> T<unit>
     ]
@@ -721,7 +721,7 @@ let b2ConstantForceController =
 let b2ControllerEdgeClass =
     Class "Box2D.Dynamics.Controllers.b2ControllerEdge"
     |=> b2ControllerEdge
-    |+> Protocol [
+    |+> Instance [
         "body" =@ b2Body
         "controller" =@ b2Controller
         "nextBody" =@ b2ControllerEdge
@@ -733,7 +733,7 @@ let b2ControllerEdgeClass =
 let b2GravityController =
     Class "Box2D.Dynamics.Controllers.b2GravityController"
     |=> Inherits b2Controller
-    |+> Protocol [
+    |+> Instance [
         "G" =@ T<float>
         "invSqr" =@ T<bool>
         "Step" => b2TimeStep?step ^-> T<unit>
@@ -742,7 +742,7 @@ let b2GravityController =
 let b2TensorDampingController =
     Class "Box2D.Dynamics.Controllers.b2TensorDampingController"
     |=> Inherits b2Controller
-    |+> Protocol [
+    |+> Instance [
         "maxTimestep" =@ T<int>
         "T" =@ b2Math22
         "SetAxisAligned" => T<float>?xDamping * T<float>?yDamping ^-> T<unit>

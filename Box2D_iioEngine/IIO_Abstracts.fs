@@ -1,14 +1,14 @@
 ﻿module IIO_Abstracts
 
-open IntelliFactory.WebSharper.InterfaceGenerator
-open IntelliFactory.WebSharper.JavaScript.Dom
+open WebSharper.InterfaceGenerator
+open WebSharper.JavaScript.Dom
 
 //Abstracts
 let Vec =
     let self = Type.New()
     Class "iio.Vec"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "x" =@ T<float>
         "y" =@ T<float>
         "clone" => T<unit> ^-> self
@@ -31,7 +31,7 @@ let Vec =
         "lerp" => T<float>?x * T<float>?y * T<float>?weight ^-> self
     ]
     //static functions
-    |+> [
+    |+> Static [
             Constructor <| self?v
             Constructor <| T<float>?x * T<float>?y
             "tostring" => self?v ^-> T<string>
@@ -70,7 +70,7 @@ let Obj =
     let self = Type.New()
     Class "iio.Obj"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "pos" =@ Vec
         "rotation" =@ T<float>
         "clone" => T<unit> ^-> self
@@ -82,7 +82,7 @@ let Obj =
         "enableUpdates" => ((T<obj> ^-> T<unit>)?callback * T<obj[]>?callbackParams) ^-> self
         "addEventListener" => T<Event>?evt * (T<obj> ^-> T<unit>)?fn * T<obj>?capt ^-> T<bool>
     ]
-    |+> [
+    |+> Static [
         Constructor <| Vec?position
         Constructor <| T<float>?x * T<float>?y
     ]

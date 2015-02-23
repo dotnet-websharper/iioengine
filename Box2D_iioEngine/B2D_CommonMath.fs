@@ -1,6 +1,6 @@
 ﻿module B2D_CommonMath
 
-open IntelliFactory.WebSharper.InterfaceGenerator
+open WebSharper.InterfaceGenerator
 
 let b2Math22 = Type.New()
 let Box2DSprite = T<obj>
@@ -10,7 +10,7 @@ let b2Vec2 =
     let self = Type.New()
     Class "Box2D.Common.Math.b2Vec2"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "x" =@ T<float>
         "y" =@ T<float>
         "Abs" => T<unit> ^-> T<unit>
@@ -34,7 +34,7 @@ let b2Vec2 =
         "SetZero" => T<unit> ^-> T<unit>
         "Subtract" => self?v ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<float>?x * T<float>?y
         "Make" => T<float>?x * T<float>?y ^-> self
     ]
@@ -43,7 +43,7 @@ let b2Vec3 =
     let self = Type.New()
     Class "Box2D.Common.Math.b2Vec3"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "x" =@ T<float>
         "y" =@ T<float>
         "z" =@ T<float>
@@ -57,14 +57,14 @@ let b2Vec3 =
         "SetZero" => T<unit> ^-> T<unit>
         "Subtract" => self?v ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<float>?x * T<float>?y * T<float>?z
     ]
 
 let b2Math22Class =
     Class "Box2D.Common.Math.b2Math22"
     |=> b2Math22
-    |+> Protocol [
+    |+> Instance [
         "col1" =@ b2Vec2
         "col2" =@ b2Vec2
         "Abs" => T<unit> ^-> T<unit>
@@ -86,7 +86,7 @@ let b2Transform =
     let self = Type.New()
     Class "Box2D.Common.Math.b2Transform"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "position" =@ b2Vec2
         "R" =@ b2Math22
         "GetAngle" => T<unit> ^-> T<float>
@@ -94,7 +94,7 @@ let b2Transform =
         "Set" => self?x ^-> T<unit>
         "SetIndentity" => T<unit> ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
         Constructor <| b2Vec2?pos * b2Math22?r
     ]
 
@@ -102,7 +102,7 @@ let b2Math33 =
     let self = Type.New()
     Class "Box2D.Common.Math.b2Math33"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "col1" =@ b2Vec3
         "col2" =@ b2Vec3
         "col3" =@ b2Vec3
@@ -116,7 +116,7 @@ let b2Math33 =
         "Solve33" => b2Vec3?out * T<float>?bX * T<float>?bY * T<float>?bZ ^-> b2Vec3
 
     ]
-     |+> [
+     |+> Static [
         Constructor <| b2Vec3?c1 * b2Vec3?c2 * b2Vec3?c3
      ]
 
@@ -124,7 +124,7 @@ let b2Sweep =
     let self = Type.New()
     Class "Box2D.Common.Math.b2Sweep"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "a" =@ T<float>
         "a0" =@ T<float>
         "c" =@ b2Vec2

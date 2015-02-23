@@ -1,6 +1,6 @@
 ﻿module B2D_Common
 
-open IntelliFactory.WebSharper.InterfaceGenerator
+open WebSharper.InterfaceGenerator
 
 open IIO_Abstracts
 open IIO_Definition
@@ -11,25 +11,25 @@ open B2D_Collisions
 
 let b2Color =
     Class "Box2D.Common.b2Color"
-    |+> Protocol [
+    |+> Instance [
         "b" =! T<int>
         "color" =? T<uint32>
         "g" =! T<int>
         "r" =! T<int>
         Generic - fun t -> "Set" => T<int>?rr * T<int>?gg * T<int>?bb ^-> t
     ]
-    |+> [
+    |+> Static [
         Constructor <| T<int>?rr * T<int>?gg * T<int>?bb
     ]
 
 let b2Settings =
     Class "Box2D.Common.b2Settings"
-    |+> Protocol [
+    |+> Instance [
         "b2Assert" => T<bool>?a ^-> T<unit>
         "b2MixFriction" => T<float>?friction1 * T<float>?friction2 ^-> T<float>
         "b2MixResitution" => T<float>?resistution1 * T<float>?resistution2 ^-> T<float>
     ]
-    |+> [
+    |+> Static [
         "b2_aabbExtension" =@ T<float>
         "b2_aabbMultiplier" =@ T<float>
         "b2_angularSleepTolerance" =@ T<float>

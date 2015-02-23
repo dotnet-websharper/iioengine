@@ -1,10 +1,10 @@
 namespace Box2D_iioEngine
 
-open IntelliFactory.WebSharper.InterfaceGenerator
+open WebSharper.InterfaceGenerator
 
 module Definition =
 
-    open IntelliFactory.WebSharper
+    open WebSharper
     
     open B2D_CommonMath
     open B2D_Collisions
@@ -18,7 +18,7 @@ module Definition =
 
     let Assembly =
         Assembly [
-            Namespace "IntelliFactory.WebSharper.IIOEngine" [
+            Namespace "WebSharper.IIOEngine" [
                 b2AABB
                 b2ContactID
                 b2ContactPoint

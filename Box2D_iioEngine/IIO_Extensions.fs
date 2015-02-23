@@ -1,7 +1,7 @@
 ﻿module IIO_Extensions
 
-open IntelliFactory.WebSharper.JavaScript.Dom
-open IntelliFactory.WebSharper.InterfaceGenerator
+open WebSharper.JavaScript.Dom
+open WebSharper.InterfaceGenerator
 open IIO_Abstracts
 open IIO_Definition
 
@@ -19,7 +19,7 @@ let IioImg =
     ]
 //Shape Extensions
 let ShapeExtensions =
-    Protocol [
+    Instance [
         "clearSelf" => Canvas2DContext ^-> T<unit>   
         "setFillStyle" => T<float> + T<float> + T<float> ^-> T<unit>
         "addImage" => T<Element>?img ^-> T<unit>
@@ -49,7 +49,7 @@ let ShapeExtensions =
     ]
 //Obj Extensions
 let ObjExtensions =
-    Protocol [
+    Instance [
         //primary functions
         "draw" => Canvas2DContext ^-> T<unit>
         //style functions
@@ -82,14 +82,14 @@ let ObjExtensions =
     ]
 let fxFade =
     Class "fxFade"
-    |+> Protocol [
+    |+> Instance [
         //effects properties
         "rate" =@ T<float>
         "alpha" =@ T<float>
     ]
 let ObjExtClass =
     Class "ObjExtClass"
-    |+> Protocol [
+    |+> Instance [
         //style properties
         "alpha" =@ T<float>
         "strokeStyle" =@ T<float> + T<float> + T<float>
@@ -108,13 +108,13 @@ let SpriteMap =
     let self = Type.New()
     Class "SpriteMap"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "getSprite" => T<float>?start * T<float>?``end`` ^-> T<obj>
         "getSprite" => T<float>?row ^-> T<obj>
         "setSpriteRes" => Vec?res ^-> T<unit>
         "setSpriteRes" => T<float>?x * T<float>?y ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
             Constructor <| T<obj>?src * T<float>?sprW * T<float>?spwrH ^-> T<unit>
             Constructor <| T<string>?src * T<float>?sprW * T<float>?sprH * (T<obj> ^-> T<unit>)?onloadCallback * T<obj>?callbackParam ^-> T<unit>
             Constructor <| T<string>?src * (T<obj> ^-> T<unit>)?onloadCallback * T<obj>?callbackParam ^-> T<unit>
@@ -123,22 +123,22 @@ let Sprite =
     let self = Type.New()
     Class "Sprite"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "frames" =@ T<obj[]>
         "addFrame" => T<float>?x * T<float>?y * T<float>?w * T<float>?h ^-> T<unit>
     ]
-    |+> [
+    |+> Static [
             Constructor <| T<obj>?src
     ]
 let KinematicsBound =
     Class "KinematicsBound"
-    |+> Protocol [
+    |+> Instance [
         "val" =@ T<float>  
         "callback" =@ T<obj> ^-> T<unit>
     ]
 let KinematicsBounds =
     Class "KinematicsBounds"
-    |+> Protocol [
+    |+> Instance [
         "top" =@ KinematicsBound
         "right" =@ KinematicsBound 
         "left" =@ KinematicsBound 
@@ -146,7 +146,7 @@ let KinematicsBounds =
         "callback" =@ T<obj> ^-> T<unit>
     ]
 let Kinematics =
-    Protocol [
+    Instance [
         //functions
         "vel" =@ Vec
         "acc" =@ Vec

@@ -1,9 +1,9 @@
 ﻿module IIO_Definition
 
-open IntelliFactory.WebSharper.InterfaceGenerator
+open WebSharper.InterfaceGenerator
 
-open IntelliFactory.WebSharper
-open IntelliFactory.WebSharper.JavaScript.Dom
+open WebSharper
+open WebSharper.JavaScript.Dom
 
 open IIO_Abstracts
 
@@ -13,14 +13,14 @@ let Circle =
     Class "iio.Circle"
     |=> self
     |=> Inherits Shape
-    |+> Protocol [
+    |+> Instance [
         "radius" =@ T<float>
         "clone" => T<unit> ^-> self
         "setRadius" => T<float>?radius ^-> self
         "contains" => Vec?point ^-> T<bool>
         "contains" => T<float>?x * T<float>?y ^-> T<bool>
     ]
-    |+> [
+    |+> Static [
         Constructor <| Vec?position * T<float>?radius
         Constructor <| T<float>?x * T<float>?y * T<float>?radius
     ]
@@ -29,7 +29,7 @@ let Poly =
     Class "iio.Poly"
     |=> self
     |=> Inherits Shape
-    |+> Protocol [
+    |+> Instance [
         "vertices" =@ T<obj[]>
         "width" =@ T<float>
         "height" =@ T<float>
@@ -40,7 +40,7 @@ let Poly =
         "contains" => T<float>?x * T<float>?y ^-> T<bool>
         "getTrueVertices" => T<unit> ^-> T<obj[]>
     ]
-    |+> [
+    |+> Static [
             Constructor <| T<obj[]>?vertices
             Constructor <| Vec?position * T<obj[]>?vertices
             Constructor <| T<float>?x * T<float>?y * T<obj[]>?vertices
@@ -50,12 +50,12 @@ let Rect =
     Class "iio.Rect"
     |=> self
     |=> Inherits Shape
-    |+> Protocol [
+    |+> Instance [
         "clone" => T<unit> ^-> self
         "setSize" => Vec?size ^-> self
         "setSize" => T<float>?w * T<float>?h ^-> self
     ]
-    |+> [
+    |+> Static [
             Constructor <| Vec?position * T<float>?width * T<float>?height
             Constructor <| T<float>?x * T<float>?y * T<float>?width * T<float>?height
     ]
@@ -64,7 +64,7 @@ let SimpleRect =
     Class "iio.SimpleRect"
     |=> self
     |=> Inherits Shape
-    |+> Protocol [
+    |+> Instance [
         "width" =@ T<float>
         "height" =@ T<float>
         "clone" => T<unit> ^-> self
@@ -78,7 +78,7 @@ let SimpleRect =
         "bottom" => T<unit> ^-> T<float>
         "left" => T<unit> ^-> T<float>
     ]
-    |+> [
+    |+> Static [
             Constructor <| Vec?position * !?T<float>?width * !?T<float>?height
             Constructor <| T<float>?x * T<float>?y * !?T<float>?width * !?T<float>?height
     ]
@@ -87,10 +87,10 @@ let XShape =
     Class "iio.XShape"
     |=> self
     |=> Inherits Shape
-    |+> Protocol [
+    |+> Instance [
         "clone" => T<unit> ^-> self
     ]
-    |+> [
+    |+> Static [
             Constructor <| Vec?position * T<float>?width * !?T<float>?height
             Constructor <| T<float>?x * T<float>?y * T<float>?width * !?T<float>?height
     ]
@@ -102,7 +102,7 @@ let Line =
     Class "iio.Line"
     |=> self
     |=> Inherits Obj
-    |+> Protocol [
+    |+> Instance [
         "endPos" =@ Vec
         "clone" => T<unit> ^-> self
         "set" => self?line ^-> self
@@ -111,7 +111,7 @@ let Line =
         "setEndPos" => Vec?point ^-> self
         "setEndPos" => T<float>?x * T<float>?y ^-> self
     ]
-    |+> [
+    |+> Static [
             Constructor <| Vec?v1 * Vec?v2
             Constructor <| T<float>?x1 * T<float>?y1 * T<float>?x2 * T<float>?y2
             Constructor <| T<float>?x1 * T<float>?y1 * Vec?v2
@@ -122,11 +122,11 @@ let MultiLine =
     Class "iio.MultiLine"
     |=> self
     |=> Inherits Obj
-    |+> Protocol [
+    |+> Instance [
         "vertices" =@ T<obj[]>
         "clone" => T<unit> ^-> self
     ]
-    |+> [
+    |+> Static [
             Constructor <| T<obj[]>?vertices
     ]
 let Grid =
@@ -134,7 +134,7 @@ let Grid =
     Class "iio.Grid"
     |=> self
     |=> Inherits Obj
-    |+> Protocol [
+    |+> Instance [
         "cells" =@ Vec
         "R" =@ T<float>
         "C" =@ T<float>
@@ -146,7 +146,7 @@ let Grid =
         "getCellCenter" => Vec?v * T<bool>?pixelPos ^-> Vec
         "getCellCenter" => T<float>?x * T<float>?y * T<bool>?pixelPos ^-> Vec
     ]
-    |+> [
+    |+> Static [
             Constructor <| Vec?pos * T<float>?columns * T<float>?rows * T<float>?xRes * T<float>?yRes
             Constructor <| T<float>?x1 * T<float>?y1 * T<float>?columns * T<float>?rows * T<float>?xRes * T<float>?yRes
     ]
@@ -155,7 +155,7 @@ let Text =
     Class "iio.Text"
     |=> self
     |=> Inherits Obj
-    |+> Protocol [
+    |+> Instance [
         "text" =@ T<string> |> WithSourceName "Value"
         "font" =@ T<string>
         "textAlign" =@ T<string>
@@ -164,7 +164,7 @@ let Text =
         "setFont" => T<string>?text ^-> self
         "setTextAlign" => T<string>?text ^-> self
     ]
-    |+> [
+    |+> Static [
             Constructor <| T<string>?text * Vec?pos
             Constructor <| T<string>?text * T<float>?x * T<float>?y
     ]
@@ -177,7 +177,7 @@ let AppManager =
     let self = Type.New()
     Class "AppManager"
     |=> self
-    |+> Protocol [
+    |+> Instance [
         "canvas" =@ T<JavaScript.CanvasElement>
         "context" =@ Canvas2DContext
         "cnvs" =@ T<obj[]>
@@ -221,7 +221,7 @@ let AppManager =
         
 let Iio =
     Class "iio"
-    |+> [
+    |+> Static [
         //need the class inherit parent-child
         //"inherit" => ()
         //start functions
