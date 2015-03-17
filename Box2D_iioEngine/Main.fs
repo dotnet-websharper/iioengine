@@ -72,6 +72,7 @@ module Definition =
                 b2TensorDampingController
                 b2DistanceJoint
                 b2DistanceJointDef
+                b2DistanceProxy
                 b2FrictionJoint
                 b2FrictionJointDef
                 b2GearJoint
@@ -92,6 +93,7 @@ module Definition =
                 b2WeldJoint
                 b2WeldJointDef
                 Vec
+                Vector
                 Obj |+> ObjExtensions 
                 Shape |+> ShapeExtensions |+> Kinematics
                 Circle   
