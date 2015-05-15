@@ -2,8 +2,10 @@
 open IntelliFactory.Build
 
 let bt =
-    let bt = BuildTool().PackageId("WebSharper.iioEngine", "3.0").References(fun r -> [r.Assembly "System.Web"])
-    bt.WithFramework(bt.Framework.Net40)
+    BuildTool().PackageId("WebSharper.iioEngine")
+        .VersionFrom("WebSharper")
+        .WithFramework(fun fw -> fw.Net40)
+        .References(fun r -> [r.Assembly "System.Web"])
 
 let main =
     bt.WebSharper.Extension("Box2D_iioEngine")
