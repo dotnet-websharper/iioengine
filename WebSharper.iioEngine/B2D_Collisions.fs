@@ -129,20 +129,6 @@ let b2DynamicTreeBroadPhase =
     let self = Type.New()
     Class "Box2D.Collision.b2DynamicTreeBroadPhase"
     |=> Implements [ IBroadPhase ]
-    |+> Instance [
-        Generic - fun t -> "CreateProxy" => b2AABB?aabb * t?userData ^-> t
-        Generic - fun t -> "DestroyProxy" => t?proxy ^-> T<unit>
-        Generic - fun t -> "GetFatAABB" => t?proxy ^-> b2AABB
-        "GetProxyCount" => T<unit> ^-> T<int>
-        Generic - fun t -> "GetUserData" => t?proxy ^-> t
-        Generic - fun t -> "MoveProxy" => t?proxy * b2AABB?aabb * b2Vec2?displacement ^-> T<unit>
-        "Query" => (T<unit> ^-> T<unit>)?callback * b2AABB?aabb ^-> T<unit>
-        "RayCast" => (T<unit> ^-> T<unit>)?callback * b2RayCastInput?input ^-> T<unit>
-        "Rebalance" => T<int>?iterations ^-> T<unit>
-        Generic - fun t -> "TestOverlap" => t?proxyA * t?proxyB ^-> T<bool>
-        "UpdatePairs" => (T<unit> ^-> T<unit>)?callback ^-> T<unit>
-        "Validate" => T<unit> ^-> T<unit>
-    ]
 
 let b2Manifold =
     let self = Type.New()

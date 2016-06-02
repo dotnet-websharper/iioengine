@@ -9,7 +9,7 @@ let bt =
         .References(fun r -> [r.Assembly "System.Web"])
 
 let main =
-    bt.WebSharper.Extension("Box2D_iioEngine")
+    bt.WebSharper.Extension("WebSharper.iioEngine")
         .SourcesFromProject()
         .Embed(["iioEngine-1.2.2.min.js"; "Box2dWeb-2.1.a.3.min.js"])
 

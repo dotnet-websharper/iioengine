@@ -5,7 +5,15 @@
     <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>38840911-8147-457c-a54a-2d3b029cc7ed</ProjectGuid>
-    <WebSharperProject>InterfaceGenerator</WebSharperProject>
+    <Name>WebSharper.iioEngine</Name>
+    <RootNamespace>WebSharper.HammerJS</RootNamespace>
+    <AssemblyName>WebSharper.HammerJS</AssemblyName>
+    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
+	<WebSharperProject>InterfaceGenerator</WebSharperProject>
+    <OutputType>Library</OutputType>
+    <RootNamespace>$(Name)</RootNamespace>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -22,18 +30,23 @@
     <OutputPath>bin/Release</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <Name>Box2D_iioEngine</Name>
-    <RootNamespace>$(Name)</RootNamespace>
-    <AssemblyName>Intellifactory.WebSharper.IIOEngine</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <WarningLevel>3</WarningLevel>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>bin/Debug\Intellifactory.WebSharper.IIOEngine.XML</DocumentationFile>
   </PropertyGroup>
-  <Import Project="..\.build\lib\WebSharper.InterfaceGenerator.targets" />
+  <!-- F# targets -->
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '11.0'">
+      <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets')">
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets')">
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="IIO_Abstracts.fs" />
     <Compile Include="IIO_Definitions.fs" />
@@ -46,15 +59,5 @@
     <EmbeddedResource Include="iioEngine-1.2.2.min.js" />
     <EmbeddedResource Include="Box2dWeb-2.1.a.3.min.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>true</Private>
-      <SpecificVersion>true</SpecificVersion>
-    </Reference>
-    <Reference Include="System.Web" />
-  </ItemGroup>
+  <Import Project="../build/net40/WebSharper.iioEngine.proj" />
 </Project>
