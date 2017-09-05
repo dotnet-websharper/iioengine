@@ -2,14 +2,14 @@
 open IntelliFactory.Build
 
 let bt =
-    BuildTool().PackageId("Zafir.iioEngine")
-        .VersionFrom("Zafir")
+    BuildTool().PackageId("WebSharper.iioEngine")
+        .VersionFrom("WebSharper")
         .WithFSharpVersion(FSharpVersion.FSharp30)
         .WithFramework(fun fw -> fw.Net40)
         .References(fun r -> [r.Assembly "System.Web"])
 
 let main =
-    bt.Zafir.Extension("WebSharper.iioEngine")
+    bt.WebSharper4.Extension("WebSharper.iioEngine")
         .SourcesFromProject()
         .Embed(["iioEngine-1.2.2.min.js"; "Box2dWeb-2.1.a.3.min.js"])
 
@@ -23,10 +23,10 @@ bt.Solution [
             {
                 c with
                     Authors = ["IntelliFactory"]
-                    Id = "Zafir.iioEngine"
+                    Id = "WebSharper.iioEngine"
 //                    LicenseUrl = Some "http://github.com/intellifactory/websharper.iioengine/blob/master/LICENSE.md"
 //                    RequiresLicenseAcceptance = true
-                    Title = Some "Zafir.iioEngine (1.2.2)"
+                    Title = Some "WebSharper.iioEngine (1.2.2)"
             })
         .Add(main)
 
