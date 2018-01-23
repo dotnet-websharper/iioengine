@@ -2,7 +2,9 @@
 ^packages/
 ^tools/packages/
 \.suo$
-^Web/bin/
-^Web/obj/
-^Web/Scripts/WebSharper/
-^Web/Content/WebSharper/
+bin/
+obj/
+^paket-files/
+^.fake/
+^.vscode/
+nuget/.*\.paket\.template$

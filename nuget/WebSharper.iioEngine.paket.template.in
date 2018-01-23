@@ -1,0 +1,19 @@
+type file
+id WebSharper.iioEngine
+authors
+    IntelliFactory
+owners
+    IntelliFactory
+
+projectUrl http://github.com/intellifactory/websharper.iioengine
+description
+    WebSharper bindings to iio Engine (http://iioengine.com/) version 1.2.2
+tags
+    Web JavaScript F# C#
+files
+    ../WebSharper.iioEngine/bin/Release/netstandard2.0/WebSharper.iioEngine.dll ==> lib/netstandard2.0
+    ../WebSharper.iioEngine/bin/Release/netstandard2.0/WebSharper.iioEngine.xml ==> lib/netstandard2.0
+dependencies
+        WebSharper ~> LOCKEDVERSION/3
+frameworkAssemblies
+        System.Web
