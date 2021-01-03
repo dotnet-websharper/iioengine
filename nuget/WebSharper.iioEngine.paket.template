@@ -16,6 +16,6 @@ files
     ../WebSharper.iioEngine/bin/Release/netstandard2.0/WebSharper.iioEngine.dll ==> lib/netstandard2.0
     ../WebSharper.iioEngine/bin/Release/netstandard2.0/WebSharper.iioEngine.xml ==> lib/netstandard2.0
 dependencies
-        WebSharper ~> LOCKEDVERSION/3
+        WebSharper ~> LOCKEDVERSION:[3]
 frameworkAssemblies
         System.Web

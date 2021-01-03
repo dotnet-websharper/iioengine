@@ -7,4 +7,3 @@ obj/
 paket-files/
 .fake/
 .vscode/
-nuget/*.paket.template
